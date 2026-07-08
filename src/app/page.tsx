@@ -95,16 +95,14 @@ export default function HomePage() {
             </div>
 
             <div className="relative hidden items-center justify-center md:flex">
-              <div className="relative flex h-[190px] w-[330px] items-center justify-center rounded-lg border border-[#CCFF00]/20 bg-[linear-gradient(135deg,rgba(204,255,0,0.10),rgba(0,0,0,0.55)_45%,rgba(204,255,0,0.06))] shadow-[inset_0_0_32px_rgba(204,255,0,0.12)]">
-                <Image
-                  src="/chestfi-icon.png"
-                  alt="ChestFi chest"
-                  width={300}
-                  height={228}
-                  priority
-                  className="h-[155px] w-[210px] object-contain drop-shadow-[0_0_28px_rgba(204,255,0,0.55)]"
-                />
-              </div>
+              <Image
+                src="/chestfi-icon.png"
+                alt="ChestFi chest"
+                width={300}
+                height={228}
+                priority
+                className="h-[170px] w-[230px] object-contain drop-shadow-[0_0_28px_rgba(204,255,0,0.55)]"
+              />
             </div>
           </div>
         </section>
