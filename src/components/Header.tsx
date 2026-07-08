@@ -17,7 +17,7 @@ export function Header() {
   const balanceLabel = balance ? `${Number(balance.formatted).toFixed(4)} ${balance.symbol}` : '0.0000 ETH';
 
   return (
-    <header className="fixed left-16 right-4 top-3 z-50 lg:left-60">
+    <header className="fixed left-16 right-0 top-0 z-50 bg-black pb-3 pl-0 pr-4 pt-3 lg:left-60">
       <div className="flex h-16 items-center justify-end rounded-lg border border-white/10 bg-[#060706] px-4">
         <ConnectButton.Custom>
           {({ account, chain, mounted, openAccountModal, openChainModal, openConnectModal }) => {
