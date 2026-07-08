@@ -5,12 +5,10 @@ import {
   BookOpen,
   Calendar,
   Coins,
-  ExternalLink,
   Flame,
   Lock,
   Send,
   Shield,
-  Sparkles,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { DashboardStats } from '@/components/DashboardStats';
@@ -137,42 +135,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section>
-          <div className="relative overflow-hidden rounded-lg border border-white/10 bg-white/[0.045] p-5 shadow-[0_14px_30px_rgba(0,0,0,0.28)]">
-            <div className="absolute inset-y-0 right-0 w-1/2 bg-[linear-gradient(90deg,transparent,rgba(204,255,0,0.08))]" />
-            <div className="relative grid gap-5 md:grid-cols-[1fr_300px]">
-              <div>
-                <h2 className="text-xl font-bold text-white">Ecosystem Overview</h2>
-                <div className="mt-8 flex items-center gap-4">
-                  {[Coins, Send, Shield].map((Icon, index) => (
-                    <div
-                      key={index}
-                      className="flex h-16 w-16 items-center justify-center rounded-full border border-[#CCFF00]/25 bg-[#CCFF00]/10 text-[#CCFF00] shadow-[0_0_24px_rgba(204,255,0,0.14)]"
-                    >
-                      <Icon className="h-7 w-7" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="flex flex-col justify-center">
-                <div className="flex items-center gap-3">
-                  <Sparkles className="h-5 w-5 text-[#CCFF00]" />
-                  <p className="font-semibold text-white">Built on Robinhood Chain</p>
-                </div>
-                <p className="mt-2 text-sm leading-6 text-gray-400">Secure. Transparent. Community driven.</p>
-                <a
-                  href="https://robinhoodchain.blockscout.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-5 inline-flex w-fit items-center gap-2 rounded-md border border-white/10 px-4 py-3 text-sm font-semibold text-white hover:border-[#CCFF00]/50 hover:text-[#CCFF00]"
-                >
-                  Explore Ecosystem
-                  <ExternalLink className="h-4 w-4" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
     </div>
   );
