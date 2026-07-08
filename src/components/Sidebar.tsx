@@ -1,19 +1,23 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { 
-  LayoutDashboard,
-  Coins, 
-  Lock, 
-  Shield, 
-  Calendar, 
-  Send,
+import {
+  BookOpen,
+  Calendar,
+  ChevronDown,
+  Coins,
   Flame,
+  LayoutDashboard,
+  Lock,
   Menu,
+  Send,
+  Settings,
+  Shield,
+  Sparkles,
   X,
-  ChevronDown
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -69,13 +73,10 @@ export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
 
-  // Ensure the section containing the active route is expanded by default
   useEffect(() => {
     navigation.forEach((item) => {
-      if ('children' in item && item.children) {
-        const anyActive = item.children.some((child) => 
-          !child.href.startsWith('http') && pathname.startsWith(child.href)
-        );
+      if (isNavSection(item)) {
+        const anyActive = item.children.some((child) => !child.href.startsWith('http') && pathname.startsWith(child.href));
         if (anyActive) {
           setOpenSections((prev) => ({ ...prev, [item.name]: true }));
         }
@@ -83,174 +84,144 @@ export function Sidebar() {
     });
   }, [pathname]);
 
-  const toggleSection = (name: string) => {
-    setOpenSections((prev) => ({ ...prev, [name]: !prev[name] }));
-  };
-
-  // Reset mobile menu when pathname changes
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
+  const toggleSection = (name: string) => {
+    setOpenSections((prev) => ({ ...prev, [name]: !prev[name] }));
+  };
+
+  const isRouteActive = (href: string) => pathname === href || (href === '/dasboard' && pathname === '/');
+
+  const navClass = (active: boolean) =>
+    cn(
+      'group flex w-full items-center rounded-md px-3 py-3 text-sm font-medium transition-all',
+      active
+        ? 'border border-[#CCFF00]/40 bg-[#CCFF00]/15 text-[#CCFF00] shadow-[0_0_22px_rgba(204,255,0,0.18)]'
+        : 'text-gray-300 hover:bg-white/10 hover:text-white'
+    );
+
+  const iconClass = (active: boolean) =>
+    cn('mr-3 h-5 w-5 flex-shrink-0', active ? 'text-[#CCFF00]' : 'text-gray-400 group-hover:text-white');
+
   return (
     <>
-      {/* Mobile menu button */}
       <button
-        className="lg:hidden fixed top-4 right-4 z-50 p-2 rounded-md bg-black/90 text-white backdrop-blur-md border border-white/20 shadow-sm"
+        className="fixed left-4 top-4 z-50 rounded-md border border-white/20 bg-black/90 p-2 text-white shadow-sm backdrop-blur-md lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
+        type="button"
       >
         {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </button>
 
-      {/* Sidebar */}
-      <div className={cn(
-        "fixed top-16 left-0 z-[9999] pointer-events-auto w-64 h-[calc(100vh-4rem)] bg-black/90 backdrop-blur-md border-r border-white/15 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0 lg:fixed lg:top-16",
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      )}>
-        <div className="flex flex-col h-full">
-          <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-            <nav className="flex-1 px-2 space-y-1">
-              {navigation.map((item) => {
-                if (isNavSection(item)) {
-                  const isSectionOpen = !!openSections[item.name];
-                  const isSectionActive = item.children.some((child) => 
-                    !child.href.startsWith('http') && pathname.startsWith(child.href)
-                  );
-                  return (
-                    <div key={item.name} className="space-y-1">
-                      <button
-                        type="button"
-                        className={cn(
-                          'w-full flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors',
-                          isSectionActive ? 'bg-[#CCFF00] text-black' : 'text-gray-300 hover:bg-white/10 hover:text-white'
-                        )}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          toggleSection(item.name);
-                        }}
-                      >
-                        <item.icon
-                          className={cn(
-                            'mr-3 h-5 w-5 flex-shrink-0',
-                            isSectionActive ? 'text-black' : 'text-gray-400'
-                          )}
-                        />
-                        <span className="flex-1 text-left">{item.name}</span>
-                        <ChevronDown
-                          className={cn(
-                            'h-4 w-4 transition-transform',
-                            isSectionOpen ? 'rotate-180' : 'rotate-0',
-                            isSectionActive ? 'text-black' : 'text-gray-400'
-                          )}
-                        />
-                      </button>
-                      {isSectionOpen && (
-                        <div className="pl-9 space-y-1">
-                          {item.children.map((child) => {
-                            const isActive = !child.href.startsWith('http') && pathname === child.href;
-                            const isExternal = child.href.startsWith('http');
-                            const className = cn(
-                              'group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors',
-                              isActive ? 'bg-[#CCFF00] text-black' : 'text-gray-300 hover:bg-white/10 hover:text-white'
-                            );
-                            
-                            if (isExternal) {
-                              return (
-                                <a
-                                  key={child.name}
-                                  href={child.href}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className={className}
-                                  onClick={() => {
-                                    setIsOpen(false);
-                                  }}
-                                >
-                                  <span className="mr-3 h-5 w-5" />
-                                  {child.name}
-                                </a>
-                              );
-                            }
-                            
-                            return (
-                              <Link
-                                key={child.name}
-                                href={child.href}
-                                className={className}
-                                onClick={() => {
-                                  setIsOpen(false);
-                                }}
-                              >
-                                <span className="mr-3 h-5 w-5" />
-                                {child.name}
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  );
-                }
+      <aside
+        className={cn(
+          'fixed left-0 top-0 z-[9999] m-2 flex h-[calc(100vh-1rem)] w-56 flex-col rounded-lg border border-white/15 bg-[#060706]/95 shadow-[0_0_36px_rgba(204,255,0,0.08)] backdrop-blur-md transition-transform duration-200 lg:translate-x-0',
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        )}
+      >
+        <Link href="/" className="flex items-center gap-3 px-5 py-6 text-white">
+          <Image
+            src="/chestfi-icon.png"
+            alt="ChestFi"
+            width={42}
+            height={32}
+            className="h-8 w-11 object-contain"
+            priority
+          />
+          <span className="text-xl font-bold">ChestFi</span>
+        </Link>
 
-                // Narrow to simple link item
-                const link = item as NavLink;
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className={cn(
-                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors',
-                      isActive
-                        ? 'bg-[#CCFF00] text-black'
-                        : 'text-gray-300 hover:bg-white/10 hover:text-white'
-                    )}
-                    onClick={() => {
-                      setIsOpen(false);
+        <nav className="flex-1 space-y-2 overflow-y-auto px-3 pb-4">
+          {navigation.map((item) => {
+            if (isNavSection(item)) {
+              const isSectionOpen = !!openSections[item.name];
+              const isSectionActive = item.children.some((child) => !child.href.startsWith('http') && pathname.startsWith(child.href));
+
+              return (
+                <div key={item.name} className="space-y-1">
+                  <button
+                    type="button"
+                    className={navClass(isSectionActive)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toggleSection(item.name);
                     }}
                   >
-                    <link.icon
+                    <item.icon className={iconClass(isSectionActive)} />
+                    <span className="flex-1 text-left">{item.name}</span>
+                    <ChevronDown
                       className={cn(
-                        'mr-3 h-5 w-5 flex-shrink-0',
-                        isActive ? 'text-black' : 'text-gray-400 group-hover:text-white'
+                        'h-4 w-4 transition-transform',
+                        isSectionOpen ? 'rotate-180' : 'rotate-0',
+                        isSectionActive ? 'text-[#CCFF00]' : 'text-gray-400'
                       )}
                     />
-                    {link.name}
-                  </Link>
-                );
-              })}
-            </nav>
+                  </button>
+
+                  {isSectionOpen && (
+                    <div className="space-y-1 pl-9">
+                      {item.children.map((child) => {
+                        const isActive = isRouteActive(child.href);
+                        const className = cn(
+                          'block rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                          isActive ? 'bg-[#CCFF00]/15 text-[#CCFF00]' : 'text-gray-400 hover:bg-white/10 hover:text-white'
+                        );
+
+                        return child.href.startsWith('http') ? (
+                          <a key={child.name} href={child.href} target="_blank" rel="noopener noreferrer" className={className}>
+                            {child.name}
+                          </a>
+                        ) : (
+                          <Link key={child.name} href={child.href} className={className}>
+                            {child.name}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+
+            const isActive = isRouteActive(item.href);
+            return (
+              <Link key={item.name} href={item.href} className={navClass(isActive)}>
+                <item.icon className={iconClass(isActive)} />
+                {item.name}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="mx-3 mb-3 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+          <div className="flex items-center gap-2 text-sm font-semibold text-white">
+            Robinhood Chain <span className="h-2 w-2 rounded-full bg-[#CCFF00]" />
           </div>
-          
-          {/* Mobile Connect Wallet Button */}
-          <div className="lg:hidden px-2 pb-4">
-            <div className="border-t border-white/15 pt-4">
-              <ConnectButton />
-            </div>
+          <p className="mt-3 text-xs text-gray-400">Network Status</p>
+          <p className="mt-1 text-xs font-semibold text-[#CCFF00]">Healthy</p>
+        </div>
+
+        <div className="mx-3 mb-3 flex items-center justify-between border-t border-white/10 pt-3 text-gray-400">
+          <button className="rounded-md border border-white/10 p-2 hover:border-[#CCFF00]/50 hover:text-[#CCFF00]" type="button">
+            <BookOpen className="h-4 w-4" />
+          </button>
+          <button className="rounded-md border border-white/10 p-2 hover:border-[#CCFF00]/50 hover:text-[#CCFF00]" type="button">
+            <Settings className="h-4 w-4" />
+          </button>
+          <Sparkles className="h-4 w-4 text-[#CCFF00]" />
+        </div>
+
+        <div className="px-3 pb-4 lg:hidden">
+          <div className="border-t border-white/15 pt-4">
+            <ConnectButton />
           </div>
         </div>
-      </div>
+      </aside>
 
-      {/* Overlay for mobile */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/70 lg:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      {isOpen && <div className="fixed inset-0 z-40 bg-black/70 lg:hidden" onClick={() => setIsOpen(false)} />}
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
