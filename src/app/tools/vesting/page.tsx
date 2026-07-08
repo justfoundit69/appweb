@@ -383,10 +383,10 @@ export default function VestingPage() {
       <div className="min-h-screen py-8 relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-white mb-1">Token Vesting</h1>
+            <h1 className="text-3xl font-bold text-[#1C180D] mb-1">Token Vesting</h1>
             <div className="flex items-center gap-4 text-sm">
-              <span className="font-semibold text-white">Create Vesting</span>
-              <Link href="/token-vesting/my-vesting" className="text-gray-300 hover:text-white underline">My Vestings</Link>
+              <span className="font-semibold text-[#1C180D]">Create Vesting</span>
+              <Link href="/token-vesting/my-vesting" className="text-[#3f3a2b] hover:text-[#1C180D] underline">My Vestings</Link>
             </div>
           </div>
 
@@ -394,10 +394,10 @@ export default function VestingPage() {
           {isComingSoon && (
             <>
               <div className="fixed top-16 left-0 right-0 lg:left-64 bottom-0 z-40 pointer-events-auto cursor-not-allowed select-none">
-                <div className="absolute inset-0 backdrop-blur-md bg-black/70" />
+                <div className="absolute inset-0 backdrop-blur-md bg-white/80" />
                 <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-2xl z-20 text-center px-6">
-                  <div className="rounded-lg border border-white/20 bg-[#0f0f0f] backdrop-blur-sm p-4 shadow-sm">
-                    <p className="font-semibold text-white">Coming Soon</p>
+                  <div className="rounded-lg border border-[#1C180D]/20 bg-white backdrop-blur-sm p-4 shadow-sm">
+                    <p className="font-semibold text-[#1C180D]">Coming Soon</p>
                   </div>
                 </div>
               </div>
@@ -437,7 +437,7 @@ export default function VestingPage() {
                   {/* Dynamic Recipients */}
                   <div className="md:col-span-2 space-y-3">
                     <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium text-gray-300">Recipients (max 20)</label>
+                      <label className="text-sm font-medium text-[#3f3a2b]">Recipients (max 20)</label>
                       <button
                         type="button"
                         onClick={() => append({ beneficiary: '' })}
@@ -493,7 +493,7 @@ export default function VestingPage() {
                     </div>
                     <div className="md:col-span-6">
                       <div className="space-y-2">
-                        <label className="block text-sm font-semibold text-white invisible">Unit</label>
+                        <label className="block text-sm font-semibold text-[#1C180D] invisible">Unit</label>
                         <select
                           {...register('durationUnit')}
                           className="w-full h-12 px-4 rounded-md bg-gray-100 text-black border-2 border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-500 transition-colors"
@@ -509,7 +509,7 @@ export default function VestingPage() {
 
                   {/* Unlock schedule under duration */}
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-300">Unlock Every</label>
+                    <label className="block text-sm font-medium text-[#3f3a2b]">Unlock Every</label>
                     <select
                       {...register('unlockUnit')}
                       className="w-full h-12 px-4 rounded-md bg-gray-100 text-black border-2 border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-500 transition-colors"
@@ -530,7 +530,7 @@ export default function VestingPage() {
                     <div className="border rounded-lg p-4 bg-gray-50">
                       <label className="flex items-center gap-2 mb-3">
                         <input type="checkbox" {...register('advancedEnabled')} className="h-4 w-4" />
-                        <span className="text-sm font-medium text-white">Advanced settings (optional)</span>
+                        <span className="text-sm font-medium text-[#1C180D]">Advanced settings (optional)</span>
                       </label>
                       {watch('advancedEnabled') && (
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
@@ -546,7 +546,7 @@ export default function VestingPage() {
                           </div>
                           <div className="md:col-span-6">
                             <div className="space-y-2">
-                              <label className="block text-sm font-semibold text-white invisible">Unit</label>
+                              <label className="block text-sm font-semibold text-[#1C180D] invisible">Unit</label>
                               <select
                                 {...register('advancedCliffUnit')}
                                 className="w-full h-12 px-4 rounded-md bg-gray-100 text-black border-2 border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-500 transition-colors"
@@ -580,14 +580,14 @@ export default function VestingPage() {
                 </form>
 
                 {createdScheduleId && (
-                  <div className="mt-8 p-4 bg-[#f5f5f5] border border-white/40 rounded-lg">
-                    <h3 className="text-lg font-semibold text-gray-200 mb-2">Vesting Schedule Created!</h3>
-                    <p className="text-gray-300 mb-4">
+                  <div className="mt-8 p-4 bg-[#f5f5f5] border border-[#1C180D]/40 rounded-lg">
+                    <h3 className="text-lg font-semibold text-[#1C180D] mb-2">Vesting Schedule Created!</h3>
+                    <p className="text-[#3f3a2b] mb-4">
                       Schedule ID: {createdScheduleId}
                     </p>
                     {claimable && typeof claimable === 'bigint' && claimable > BigInt(0) ? (
                       <div className="mb-4">
-                        <p className="text-gray-200 mb-2">
+                        <p className="text-[#1C180D] mb-2">
                           Claimable Amount: {claimableAmount.toString()}
                         </p>
                         <button
@@ -602,7 +602,7 @@ export default function VestingPage() {
                       href={explorerUrl('', hash)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-gray-200 hover:text-gray-200 font-medium"
+                      className="inline-flex items-center text-[#1C180D] hover:text-[#1C180D] font-medium"
                     >
                       View Transaction on Explorer
                       <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -617,8 +617,8 @@ export default function VestingPage() {
           {/* Right: Helper Panel + Summary */}
             <div className={`lg:col-span-4 lg:sticky lg:top-24 space-y-4 ${isComingSoon ? 'blur-sm select-none pointer-events-none user-select-none' : ''}`}>
             <div className="card p-6 space-y-3">
-              <h3 className="text-lg font-semibold text-white">Summary</h3>
-              <div className="text-sm text-gray-300 space-y-2">
+              <h3 className="text-lg font-semibold text-[#1C180D]">Summary</h3>
+              <div className="text-sm text-[#3f3a2b] space-y-2">
                 <div className="flex justify-between"><span>Token</span><span className="font-mono break-all">{tokenName || tokenSymbol || vestedTokenAddress || '—'}</span></div>
                 <div className="flex justify-between"><span>Recipients</span><span>{Array.isArray(recipientsWatch) ? recipientsWatch.length : 0}</span></div>
                 <div className="flex justify-between"><span>Total</span><span>{totalAmountParsed !== null ? formatUnits(totalAmountParsed, decimals) : '—'} {tokenSymbol}</span></div>
@@ -633,16 +633,16 @@ export default function VestingPage() {
             {/* Claim schedule preview (first/last only) */}
             {schedulePreview.length > 0 && (
               <div className="card p-6 space-y-2">
-                <h3 className="text-lg font-semibold text-white">Unlock Schedule Preview</h3>
-                <div className="text-sm text-gray-300 space-y-1">
+                <h3 className="text-lg font-semibold text-[#1C180D]">Unlock Schedule Preview</h3>
+                <div className="text-sm text-[#3f3a2b] space-y-1">
                   <div className="flex justify-between"><span>First unlock</span><span>{fmt(new Date(schedulePreview[0].t * 1000))} — {fmtAmount(schedulePreview[0].amount)} {tokenSymbol}</span></div>
                   <div className="flex justify-between"><span>Last unlock</span><span>{fmt(new Date(schedulePreview[schedulePreview.length - 1].t * 1000))} — {fmtAmount(schedulePreview[schedulePreview.length - 1].amount)} {tokenSymbol}</span></div>
                 </div>
               </div>
             )}
               <div className="card p-6 space-y-4">
-                <h3 className="text-lg font-semibold text-white">Guidelines</h3>
-                <ul className="text-sm text-gray-300 list-disc pl-5 space-y-1">
+                <h3 className="text-lg font-semibold text-[#1C180D]">Guidelines</h3>
+                <ul className="text-sm text-[#3f3a2b] list-disc pl-5 space-y-1">
                   <li>`Cliff` is the delay before vesting starts.</li>
                   <li>`Duration` is the total length of the vesting schedule.</li>
                 </ul>

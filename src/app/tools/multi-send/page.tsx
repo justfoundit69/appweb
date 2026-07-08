@@ -458,8 +458,8 @@ export default function MultiSendPage() {
       <div className="min-h-screen py-8 relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Multi-Send</h1>
-            <p className="text-gray-300">
+            <h1 className="text-3xl font-bold text-[#1C180D] mb-2">Multi-Send</h1>
+            <p className="text-[#3f3a2b]">
               Send tokens to multiple addresses efficiently with a single transaction.
             </p>
           </div>
@@ -467,11 +467,11 @@ export default function MultiSendPage() {
           {isComingSoon && (
             <>
               <div className="fixed top-16 left-0 right-0 lg:left-64 bottom-0 z-40 pointer-events-auto cursor-not-allowed select-none">
-                <div className="absolute inset-0 backdrop-blur-md bg-black/70" />
+                <div className="absolute inset-0 backdrop-blur-md bg-white/80" />
                 <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-2xl z-20 text-center px-6">
-                  <div className="rounded-lg border-2 border-white bg-[#0f0f0f] backdrop-blur-sm p-4 shadow-sm">
-                    <p className="font-semibold mb-1 text-white">Coming Soon</p>
-                    <p className="text-sm text-gray-300">
+                  <div className="rounded-lg border-2 border-[#1C180D] bg-white backdrop-blur-sm p-4 shadow-sm">
+                    <p className="font-semibold mb-1 text-[#1C180D]">Coming Soon</p>
+                    <p className="text-sm text-[#3f3a2b]">
                       Multi-Send is not available yet. Please check back later.
                     </p>
                   </div>
@@ -487,10 +487,10 @@ export default function MultiSendPage() {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                   {/* Token Selection */}
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-white">Token Selection</h3>
+                    <h3 className="text-lg font-semibold text-[#1C180D]">Token Selection</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                        <label className="block text-sm font-medium text-[#3f3a2b] mb-2">
                           Token Type
                         </label>
                         <select
@@ -510,8 +510,8 @@ export default function MultiSendPage() {
                             {...register('tokenAddress')}
                           />
                           {needsApproval && (
-                            <div className="mt-4 p-4 bg-black/40 border border-white/30 rounded-lg">
-                              <p className="text-sm text-gray-200 mb-2">
+                            <div className="mt-4 p-4 bg-white/70 border border-[#1C180D]/30 rounded-lg">
+                              <p className="text-sm text-[#1C180D] mb-2">
                                 Approval required before multi-send.
                               </p>
                               <button
@@ -525,8 +525,8 @@ export default function MultiSendPage() {
                             </div>
                           )}
                           {!needsApproval && tokenAddress && (
-                            <div className="mt-4 p-4 bg-black/40 border border-white/30 rounded-lg">
-                              <p className="text-sm text-gray-200">
+                            <div className="mt-4 p-4 bg-white/70 border border-[#1C180D]/30 rounded-lg">
+                              <p className="text-sm text-[#1C180D]">
                                 ✓ Token approved and ready for multi-send
                               </p>
                             </div>
@@ -538,7 +538,7 @@ export default function MultiSendPage() {
 
                   {/* File Upload Section */}
                   <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-white">Upload Recipients</h3>
+                      <h3 className="text-lg font-semibold text-[#1C180D]">Upload Recipients</h3>
                     <FileDrop
                       onFileSelect={handleFileSelect}
                       acceptedTypes={['.csv', '.json']}
@@ -552,7 +552,7 @@ export default function MultiSendPage() {
                   {/* Manual Entry Section */}
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-white">Manual Entry</h3>
+                      <h3 className="text-lg font-semibold text-[#1C180D]">Manual Entry</h3>
                       <button
                         type="button"
                         onClick={() => append({ address: '', amount: '' })}
@@ -621,7 +621,7 @@ export default function MultiSendPage() {
                     >
                       {isLoading || isWritePending || isConfirming ? (
                         <div className="flex items-center justify-center">
-                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#1C180D] mr-2"></div>
                           {isConfirming ? 'Confirming...' : 'Preparing...'}
                         </div>
                       ) : (
@@ -637,29 +637,29 @@ export default function MultiSendPage() {
             {/* Right: Summary Panel */}
             <div className={`lg:col-span-4 ${isComingSoon ? 'blur-sm select-none pointer-events-none user-select-none' : ''}`}>
               <div className="card p-6 lg:sticky lg:top-24 space-y-4">
-                <h3 className="text-lg font-semibold text-white">Summary</h3>
+                <h3 className="text-lg font-semibold text-[#1C180D]">Summary</h3>
                 
                 {/* Fee Information */}
-                <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg p-4">
-                  <h4 className="font-medium text-white mb-2">Multi-Send Fee</h4>
-                  <p className="text-sm text-gray-300">
+                <div className="bg-white/70 backdrop-blur-sm border border-[#1C180D]/20 rounded-lg p-4">
+                  <h4 className="font-medium text-[#1C180D] mb-2">Multi-Send Fee</h4>
+                  <p className="text-sm text-[#3f3a2b]">
                     Fee {feeAmount ? formatUnits(feeAmount as bigint, 18) : '0.00235'} ETH will be charged for each multi-send operation.
                   </p>
                 </div>
 
-                <div className="bg-black/40 backdrop-blur-sm border border-white/20 rounded-lg p-4">
-                  <p className="text-sm text-gray-300">Token Type</p>
-                  <p className="text-lg font-bold text-white">
+                <div className="bg-white/70 backdrop-blur-sm border border-[#1C180D]/20 rounded-lg p-4">
+                  <p className="text-sm text-[#3f3a2b]">Token Type</p>
+                  <p className="text-lg font-bold text-[#1C180D]">
                     {watch('tokenType') === 'native' ? 'Native (ETH)' : 'Token'}
                   </p>
-                  <p className="text-sm text-gray-300 mt-4">Recipients</p>
-                  <p className="text-2xl font-bold text-white">{recipients.length}</p>
-                  <p className="text-sm text-gray-300 mt-4">Estimated Total</p>
-                  <p className="text-2xl font-bold text-white">{totalAmount.toLocaleString()} tokens</p>
+                  <p className="text-sm text-[#3f3a2b] mt-4">Recipients</p>
+                  <p className="text-2xl font-bold text-[#1C180D]">{recipients.length}</p>
+                  <p className="text-sm text-[#3f3a2b] mt-4">Estimated Total</p>
+                  <p className="text-2xl font-bold text-[#1C180D]">{totalAmount.toLocaleString()} tokens</p>
                   {watch('tokenType') === 'native' && (
                     <>
-                      <p className="text-sm text-gray-300 mt-4">Total ETH Required</p>
-                      <p className="text-lg font-bold text-white">
+                      <p className="text-sm text-[#3f3a2b] mt-4">Total ETH Required</p>
+                      <p className="text-lg font-bold text-[#1C180D]">
                         {(totalAmount + (feeAmount ? Number(formatUnits(feeAmount as bigint, 18)) : 0.00235)).toLocaleString()} ETH
                       </p>
                     </>
@@ -667,18 +667,18 @@ export default function MultiSendPage() {
                 </div>
                 <div className={`border rounded-lg p-4 ${
                   process.env.NEXT_PUBLIC_MULTISEND 
-                    ? 'bg-[#0f0f0f] border-white' 
-                    : 'bg-black/40 backdrop-blur-sm border border-white/20'
+                    ? 'bg-white border-[#1C180D]'
+                    : 'bg-white/70 backdrop-blur-sm border border-[#1C180D]/20'
                 }`}>
                   <p className={`text-sm ${
                     process.env.NEXT_PUBLIC_MULTISEND 
-                      ? 'text-white' 
-                      : 'text-gray-300'
+                      ? 'text-[#1C180D]'
+                      : 'text-[#3f3a2b]'
                   }`}>
                     You can send tokens to multiple recipients in a single transaction.
                   </p>
                 </div>
-                <div className="text-sm text-gray-300">
+                <div className="text-sm text-[#3f3a2b]">
                   Import supports CSV and JSON. Ensure amounts are in token units.
                   <br />
                   <br />

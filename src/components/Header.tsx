@@ -5,19 +5,21 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-black/80 backdrop-blur-md border-b border-white/15">
+    <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-[#1C180D]/15">
       <div className="flex h-16 items-center justify-between px-6">
         <div className="flex items-center">
-          <Link href="/" className="flex items-center">
-            <svg 
-              viewBox="0 0 311.8 289.8" 
-              className="h-10 w-auto"
+          <Link href="/" className="flex items-center gap-3 text-[#1C180D]">
+            <svg
+              viewBox="0 0 40 40"
+              className="h-10 w-10"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path fill="#f5f5f5" d="M179.5,289.8c-15.3-0.7-27.8-7.7-36.2-21.2c-6.7-10.9-12.7-22.2-19-33.4c-5-8.9-9.9-17.8-15.1-26.6c-3.2-5.6-3.1-10.8,0.1-16.4c7.6-13.4,14.9-26.9,22.4-40.4c2.1-3.8,4.1-3.9,6.3-0.1c10.3,18.1,20.6,36.2,31,54.3c1.2,2.2,2.6,4.3,4.1,6.3c3.4,4.7,9,5.3,12.8,0.9c2.6-3,4.7-6.5,6.6-10.1c17.9-33.2,35.8-66.5,53.7-99.7c1-1.8,2.2-3.5,3.5-5.1c1.6-1.9,3.8-2.8,6.4-2.8c17.4,0,34.8,0,52.2,0c3.7,0,4.4,1.3,2.6,4.7c-12.9,23.3-25.8,46.7-38.6,70c-15.3,27.8-30.5,55.7-45.9,83.5c-3.7,6.6-7.3,13.4-12,19.3C205.8,284.1,194.2,289.6,179.5,289.8L179.5,289.8z"/>
-              <path fill="#ffffff" d="M198.9,79.5c-1.2,3-2.1,6-3.6,8.8c-6.4,11.8-12.8,23.6-19.4,35.3c-0.6,1.1-2,2.5-3,2.5c-1,0-2.3-1.4-2.9-2.6c-10.4-18.1-20.7-36.2-31-54.3c-1-1.8-2.3-3.4-3.7-4.9c-2.7-2.8-6.3-2.9-9.1-0.2c-1.7,1.8-3.1,3.9-4.3,6.1c-16.2,29.8-32.3,59.6-48.5,89.4c-5.7,10.4-11.4,20.9-17,31.3c-0.1,0.2-0.3,0.5-0.4,0.7c-3,6.5-7.8,9.2-15.2,8.8c-11.9-0.6-23.8-0.1-35.8-0.1c-0.6,0-1.3,0-1.9,0c-3.2-0.1-4-1.5-2.5-4.3c4.4-8,9-15.9,13.3-23.9c14.8-27.6,29.5-55.2,44.2-82.9C69.5,68,80.7,46.8,92.1,25.7c4.3-8.1,10-15,18.1-19.8c10.2-6.1,20.9-7.5,32.2-4.3c10.9,3,19.1,9.7,24.8,19.3c9.8,16.8,19.3,33.7,28.8,50.6C197.2,73.9,197.9,76.7,198.9,79.5L198.9,79.5z"/>
+              <rect width="40" height="40" rx="8" fill="#1C180D" />
+              <path d="M27 13.5C25.2 11.9 23 11 20.4 11C15 11 11 14.9 11 20C11 25.1 15 29 20.4 29C23.1 29 25.5 28 27.2 26.2" stroke="#CCFF00" strokeWidth="4" strokeLinecap="round" />
+              <path d="M18 20H30" stroke="#FFFFFF" strokeWidth="4" strokeLinecap="round" />
             </svg>
+            <span className="text-xl font-bold">ChestFi</span>
           </Link>
         </div>
         

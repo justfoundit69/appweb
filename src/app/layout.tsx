@@ -20,8 +20,8 @@ const ppMoriSemiBold = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'MegaLokify',
-  description: 'Tools for token creation, locking, vesting, and more on MegaETH Mainnet. Built for developers, teams, and projects that need reliable blockchain infrastructure.',
+  title: 'ChestFi',
+  description: 'Tools for token creation, locking, vesting, and more on Robinhood Chain. Built for developers, teams, and projects that need reliable blockchain infrastructure.',
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },

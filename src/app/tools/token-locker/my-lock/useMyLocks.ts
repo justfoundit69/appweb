@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useAccount, usePublicClient } from "wagmi";
 import tokenLockerAbi from "@/lib/abis/tokenLocker.json";
 import type { Abi } from "viem";
-import { parseAbiItem } from "viem";
 
 export type MyLock = {
   lockId: bigint;

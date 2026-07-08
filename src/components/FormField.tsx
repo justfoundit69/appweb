@@ -13,7 +13,7 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
   ({ label, error, helperText, className, ...props }, ref) => {
     return (
       <div className="space-y-2">
-        <label className="block text-sm font-semibold text-white">
+        <label className="block text-sm font-semibold text-[#1C180D]">
           {label}
           {props.required && <span className="text-red-500 ml-1">*</span>}
         </label>
@@ -30,7 +30,7 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
           <p className="text-sm text-red-600">{error}</p>
         )}
         {helperText && !error && (
-          <p className="text-sm text-gray-300 font-medium">{helperText}</p>
+          <p className="text-sm text-[#3f3a2b] font-medium">{helperText}</p>
         )}
       </div>
     );

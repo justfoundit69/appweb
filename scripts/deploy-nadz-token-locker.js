@@ -1,4 +1,4 @@
-const hre = require("hardhat");
+import hre from "hardhat";
 
 async function main() {
   const feeRecipient = process.env.FEE_RECIPIENT || "0x0000000000000000000000000000000000000000";

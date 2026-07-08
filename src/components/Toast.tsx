@@ -44,9 +44,9 @@ export function Toast({ id, type, title, description, duration = 5000, onClose }
   };
 
   const colors = {
-    success: 'bg-black/70 backdrop-blur-sm border-white text-white',
+    success: 'bg-white/80 backdrop-blur-sm border-[#1C180D] text-[#1C180D]',
     error: 'bg-red-50 border-red-200 text-red-800',
-    info: 'bg-[#111111] backdrop-blur-sm border-white/60 text-white',
+    info: 'bg-white backdrop-blur-sm border-[#1C180D]/60 text-[#1C180D]',
   };
 
   const Icon = icons[type];
@@ -54,7 +54,7 @@ export function Toast({ id, type, title, description, duration = 5000, onClose }
   return (
     <div
       className={cn(
-        'relative w-full bg-black/60 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg transform transition-all duration-300',
+        'relative w-full bg-white/90 backdrop-blur-sm border border-[#1C180D]/20 rounded-lg shadow-lg transform transition-all duration-300',
         isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0',
         colors[type]
       )}
@@ -72,7 +72,7 @@ export function Toast({ id, type, title, description, duration = 5000, onClose }
           </div>
           <div className="ml-4 flex-shrink-0 flex">
             <button
-              className="rounded-md inline-flex text-gray-400 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white p-1 hover:bg-white/10 transition-colors"
+              className="rounded-md inline-flex text-[#6b6657] hover:text-[#1C180D] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#CCFF00] p-1 hover:bg-[#1C180D]/5 transition-colors"
               onClick={handleClose}
               type="button"
             >
