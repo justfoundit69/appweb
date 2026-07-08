@@ -137,25 +137,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="grid gap-4 xl:grid-cols-[1fr_1.25fr]">
-          <div className="rounded-lg border border-white/10 bg-white/[0.045] p-5 shadow-[0_14px_30px_rgba(0,0,0,0.28)]">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-white">Recent Activity</h2>
-              <Link href="/token-locker/my-lock" className="inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-2 text-xs font-semibold text-gray-200 hover:border-[#CCFF00]/50 hover:text-[#CCFF00]">
-                View All
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-            <div className="space-y-3">
-              <div className="rounded-lg border border-white/8 bg-black/30 p-4">
-                <p className="text-sm font-semibold text-white">No live activity feed yet</p>
-                <p className="mt-2 text-sm leading-6 text-gray-400">
-                  Recent activity needs an event indexer or explorer API. Dummy activity has been removed.
-                </p>
-              </div>
-            </div>
-          </div>
-
+        <section>
           <div className="relative overflow-hidden rounded-lg border border-white/10 bg-white/[0.045] p-5 shadow-[0_14px_30px_rgba(0,0,0,0.28)]">
             <div className="absolute inset-y-0 right-0 w-1/2 bg-[linear-gradient(90deg,transparent,rgba(204,255,0,0.08))]" />
             <div className="relative grid gap-5 md:grid-cols-[1fr_300px]">
