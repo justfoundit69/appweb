@@ -196,14 +196,6 @@ export function Sidebar() {
           })}
         </nav>
 
-        <div className="mx-3 mb-3 rounded-lg border border-white/10 bg-white/[0.03] p-4">
-          <div className="flex items-center gap-2 text-sm font-semibold text-white">
-            Robinhood Chain <span className="h-2 w-2 rounded-full bg-[#CCFF00]" />
-          </div>
-          <p className="mt-3 text-xs text-gray-400">Network Status</p>
-          <p className="mt-1 text-xs font-semibold text-[#CCFF00]">Healthy</p>
-        </div>
-
         <div className="mx-3 mb-3 flex items-center justify-between border-t border-white/10 pt-3 text-gray-400">
           <button className="rounded-md border border-white/10 p-2 hover:border-[#CCFF00]/50 hover:text-[#CCFF00]" type="button">
             <BookOpen className="h-4 w-4" />
