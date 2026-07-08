@@ -14,9 +14,7 @@ import {
   Lock,
   Menu,
   Send,
-  Settings,
   Shield,
-  Sparkles,
   X,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -197,13 +195,15 @@ export function Sidebar() {
         </nav>
 
         <div className="mx-3 mb-3 flex items-center justify-between border-t border-white/10 pt-3 text-gray-400">
-          <button className="rounded-md border border-white/10 p-2 hover:border-[#CCFF00]/50 hover:text-[#CCFF00]" type="button">
+          <button className="rounded-md border border-white/10 p-2 hover:border-[#CCFF00]/50 hover:text-[#CCFF00]" type="button" aria-label="Docs">
             <BookOpen className="h-4 w-4" />
           </button>
-          <button className="rounded-md border border-white/10 p-2 hover:border-[#CCFF00]/50 hover:text-[#CCFF00]" type="button">
-            <Settings className="h-4 w-4" />
+          <button className="rounded-md border border-white/10 p-2 hover:border-[#CCFF00]/50 hover:text-[#CCFF00]" type="button" aria-label="X / Twitter">
+            <X className="h-4 w-4" />
           </button>
-          <Sparkles className="h-4 w-4 text-[#CCFF00]" />
+          <button className="rounded-md border border-white/10 p-2 hover:border-[#CCFF00]/50 hover:text-[#CCFF00]" type="button" aria-label="Telegram">
+            <Send className="h-4 w-4" />
+          </button>
         </div>
 
         <div className="px-3 pb-4 lg:hidden">
