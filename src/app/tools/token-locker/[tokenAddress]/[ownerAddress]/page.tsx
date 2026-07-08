@@ -26,11 +26,11 @@ const statusLabel = (lockUntil: bigint, remaining: bigint) => {
 const statusColor = (label: string) => {
   switch (label) {
     case 'Unlocked':
-      return 'bg-white/10 text-[#000000] border border-[#000000]/25';
+      return 'bg-black/10 text-white border border-white/25';
     case 'Withdrawn':
-      return 'bg-gray-500/10 text-[#222222] border border-gray-500/40';
+      return 'bg-gray-500/10 text-gray-300 border border-gray-500/40';
     default:
-      return 'bg-white/10 text-[#222222] border border-[#000000]/25';
+      return 'bg-black/10 text-gray-300 border border-white/25';
   }
 };
 
@@ -86,33 +86,33 @@ export default function TokenLockProofPage({ params }: PageProps) {
     <div className="min-h-screen py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="space-y-2">
-          <Link href="/token-locker/token-lock" className="text-sm text-[#000000] hover:underline">
+          <Link href="/token-locker/token-lock" className="text-sm text-white hover:underline">
             ← Back to Token Locker
           </Link>
-          <h1 className="text-3xl font-bold text-[#000000]">Token Lock Proof</h1>
-          <p className="text-[#222222]">
+          <h1 className="text-3xl font-bold text-white">Token Lock Proof</h1>
+          <p className="text-gray-300">
             Share this read-only view so anyone can verify the locks for your token directly from the smart contract.
           </p>
           {isValidToken && isValidOwner && (
             <div className="space-y-1">
-              <p className="text-[#666666] font-mono text-sm break-all">
+              <p className="text-gray-400 font-mono text-sm break-all">
                 Token: {normalizedToken}{' '}
                 <a
                   href={explorerUrl(normalizedToken)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#000000] hover:underline ml-1"
+                  className="text-white hover:underline ml-1"
                 >
                   (View on explorer)
                 </a>
               </p>
-              <p className="text-[#666666] font-mono text-sm break-all">
+              <p className="text-gray-400 font-mono text-sm break-all">
                 Owner: {formatAddress(normalizedOwner)}{' '}
                 <a
                   href={explorerUrl(normalizedOwner)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#000000] hover:underline ml-1"
+                  className="text-white hover:underline ml-1"
                 >
                   (View on explorer)
                 </a>
@@ -123,12 +123,12 @@ export default function TokenLockProofPage({ params }: PageProps) {
 
         <div className="card p-6 space-y-4">
           <div>
-            <p className="text-sm text-[#222222] mb-2">Shareable Link</p>
+            <p className="text-sm text-gray-300 mb-2">Shareable Link</p>
             <div className="flex flex-col md:flex-row gap-3">
               <input
                 readOnly
                 value={shareUrl || 'Invalid token or owner address'}
-                className="flex-1 bg-white/70 border border-[#000000]/40 rounded-md px-4 py-3 text-[#000000] font-mono text-sm"
+                className="flex-1 bg-black/70 border border-white/40 rounded-md px-4 py-3 text-white font-mono text-sm"
               />
               <button
                 type="button"
@@ -161,40 +161,40 @@ export default function TokenLockProofPage({ params }: PageProps) {
         {isValidToken && isValidOwner && (
           <div className="card p-6 space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="rounded-lg border border-[#000000]/20 p-4 bg-white/70">
-                <p className="text-xs text-[#666666] uppercase tracking-wide">Total Locked</p>
-                <p className="text-2xl font-semibold text-[#000000] mt-1">
+              <div className="rounded-lg border border-white/20 p-4 bg-black/70">
+                <p className="text-xs text-gray-400 uppercase tracking-wide">Total Locked</p>
+                <p className="text-2xl font-semibold text-white mt-1">
                   {formatAmount(totals.locked)} {symbol || ''}
                 </p>
               </div>
-              <div className="rounded-lg border border-[#000000]/20 p-4 bg-white/70">
-                <p className="text-xs text-[#666666] uppercase tracking-wide">Remaining Locked</p>
-                <p className="text-2xl font-semibold text-[#000000] mt-1">
+              <div className="rounded-lg border border-white/20 p-4 bg-black/70">
+                <p className="text-xs text-gray-400 uppercase tracking-wide">Remaining Locked</p>
+                <p className="text-2xl font-semibold text-white mt-1">
                   {formatAmount(totals.remaining)} {symbol || ''}
                 </p>
               </div>
-              <div className="rounded-lg border border-[#000000]/20 p-4 bg-white/70">
-                <p className="text-xs text-[#666666] uppercase tracking-wide">Already Withdrawn</p>
-                <p className="text-2xl font-semibold text-[#000000] mt-1">
+              <div className="rounded-lg border border-white/20 p-4 bg-black/70">
+                <p className="text-xs text-gray-400 uppercase tracking-wide">Already Withdrawn</p>
+                <p className="text-2xl font-semibold text-white mt-1">
                   {formatAmount(totals.withdrawn)} {symbol || ''}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-sm text-[#666666]">
+            <div className="flex items-center justify-between text-sm text-gray-400">
               <span>Last updated: {refreshedAt ? new Date(refreshedAt).toLocaleString() : '—'}</span>
               <span>{isLoading ? 'Refreshing…' : `${locks.length} lock${locks.length === 1 ? '' : 's'} found`}</span>
             </div>
 
             <div className="overflow-x-auto">
               {isLoading ? (
-                <p className="text-[#222222]">Loading lock data…</p>
+                <p className="text-gray-300">Loading lock data…</p>
               ) : locks.length === 0 ? (
-                <p className="text-[#222222]">No locks found for this wallet and token combination.</p>
+                <p className="text-gray-300">No locks found for this wallet and token combination.</p>
               ) : (
-                <table className="min-w-full text-sm text-[#000000]">
+                <table className="min-w-full text-sm text-white">
                   <thead>
-                    <tr className="text-left text-[#222222]">
+                    <tr className="text-left text-gray-300">
                       <th className="py-2 pr-4">Owner</th>
                       <th className="py-2 pr-4">Amount</th>
                       <th className="py-2 pr-4">Unlock Time</th>
@@ -206,13 +206,13 @@ export default function TokenLockProofPage({ params }: PageProps) {
                       const remaining = lock.amount - lock.withdrawn;
                       const label = statusLabel(lock.lockUntil, remaining);
                       return (
-                        <tr key={String(lock.lockId)} className="border-t border-[#000000]/20">
+                        <tr key={String(lock.lockId)} className="border-t border-white/20">
                           <td className="py-3 pr-4">
                             <div className="flex items-center gap-2">
                               <span className="font-mono">{formatAddress(lock.owner)}</span>
                               <button
                                 type="button"
-                                className="text-xs text-[#666666] hover:text-[#000000] underline"
+                                className="text-xs text-gray-400 hover:text-white underline"
                                 onClick={() => {
                                   if (typeof navigator !== 'undefined' && navigator.clipboard) {
                                     navigator.clipboard.writeText(lock.owner);
@@ -226,7 +226,7 @@ export default function TokenLockProofPage({ params }: PageProps) {
                           <td className="py-3 pr-4">
                             <div>
                               <p>{formatAmount(lock.amount)} {symbol || ''}</p>
-                              <p className="text-xs text-[#666666]">
+                              <p className="text-xs text-gray-400">
                                 Withdrawn: {formatAmount(lock.withdrawn)}
                               </p>
                             </div>

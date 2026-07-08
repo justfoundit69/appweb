@@ -160,8 +160,8 @@ export default function CreateTokenPage() {
       <div className="min-h-screen py-8 relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-[#000000] mb-2">Create Token</h1>
-            <p className="text-[#222222]">
+            <h1 className="text-3xl font-bold text-white mb-2">Create Token</h1>
+            <p className="text-gray-300">
               Deploy a new ERC-20 token on Robinhood Chain with custom parameters.
             </p>
           </div>
@@ -169,11 +169,11 @@ export default function CreateTokenPage() {
           {isComingSoon && (
             <>
               <div className="fixed top-16 left-0 right-0 lg:left-64 bottom-0 z-40 pointer-events-auto cursor-not-allowed select-none">
-                <div className="absolute inset-0 backdrop-blur-md bg-white/80" />
+                <div className="absolute inset-0 backdrop-blur-md bg-black/80" />
                 <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-2xl z-20 text-center px-6">
-                  <div className="rounded-lg border border-[#000000]/20 bg-white backdrop-blur-sm p-4 shadow-sm">
-                    <p className="font-semibold mb-1 text-[#000000]">Coming Soon</p>
-                    <p className="text-sm text-[#222222]">
+                  <div className="rounded-lg border border-white/20 bg-black backdrop-blur-sm p-4 shadow-sm">
+                    <p className="font-semibold mb-1 text-white">Coming Soon</p>
+                    <p className="text-sm text-gray-300">
                       Token Creation is not available yet. Please check back later.
                     </p>
                   </div>
@@ -251,16 +251,16 @@ export default function CreateTokenPage() {
                 </form>
 
                 {isSuccess && hash && (
-                  <div className="mt-8 p-4 bg-white border border-[#000000]/30 rounded-lg">
-                    <h3 className="text-lg font-semibold text-[#000000] mb-2">Token Created Successfully!</h3>
-                    <p className="text-[#000000] mb-4">
+                  <div className="mt-8 p-4 bg-black border border-white/30 rounded-lg">
+                    <h3 className="text-lg font-semibold text-white mb-2">Token Created Successfully!</h3>
+                    <p className="text-white mb-4">
                       Your token has been deployed to the blockchain.
                     </p>
                     <a
                       href={explorerUrl('', hash)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-[#000000] hover:text-[#000000] font-medium"
+                      className="inline-flex items-center text-white hover:text-white font-medium"
                     >
                       View Transaction on Explorer
                       <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -276,31 +276,31 @@ export default function CreateTokenPage() {
             <div className={`lg:col-span-4 ${isComingSoon ? 'blur-sm select-none pointer-events-none user-select-none' : ''}`}>
               <div className="card p-6 lg:sticky lg:top-24 space-y-6">
                 {/* Fee Information */}
-                <div className="bg-white backdrop-blur-sm border border-[#000000]/15 rounded-lg p-4">
-                  <h4 className="font-medium text-[#000000] mb-2">Token Creation Fee</h4>
-                  <p className="text-sm text-[#222222]">
+                <div className="bg-black backdrop-blur-sm border border-white/15 rounded-lg p-4">
+                  <h4 className="font-medium text-white mb-2">Token Creation Fee</h4>
+                  <p className="text-sm text-gray-300">
                     Fee {feeAmount ? formatUnits(feeAmount as bigint, 18) : '0.00235'} ETH will be charged for token creation.
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold text-[#000000] mb-2">Preview</h3>
-                  <div className="bg-white backdrop-blur-sm border border-[#000000]/15 rounded-lg p-4 space-y-2">
-                    <p className="text-sm text-[#222222]">Name</p>
-                    <p className="font-semibold text-[#000000]">{watch('name') || '—'}</p>
-                    <p className="text-sm text-[#222222] mt-3">Symbol</p>
-                    <p className="font-semibold text-[#000000]">{watch('symbol') || '—'}</p>
-                    <p className="text-sm text-[#222222] mt-3">Decimals</p>
-                    <p className="font-semibold text-[#000000]">{watch('decimals') || '18'}</p>
-                    <p className="text-sm text-[#222222] mt-3">Total Supply</p>
-                    <p className="font-semibold text-[#000000]">{watch('totalSupply') || '—'}</p>
-                    <p className="text-sm text-[#222222] mt-3">Owner</p>
-                    <p className="font-mono text-[#000000] break-all">{watch('owner') || '—'}</p>
+                  <h3 className="text-lg font-semibold text-white mb-2">Preview</h3>
+                  <div className="bg-black backdrop-blur-sm border border-white/15 rounded-lg p-4 space-y-2">
+                    <p className="text-sm text-gray-300">Name</p>
+                    <p className="font-semibold text-white">{watch('name') || '—'}</p>
+                    <p className="text-sm text-gray-300 mt-3">Symbol</p>
+                    <p className="font-semibold text-white">{watch('symbol') || '—'}</p>
+                    <p className="text-sm text-gray-300 mt-3">Decimals</p>
+                    <p className="font-semibold text-white">{watch('decimals') || '18'}</p>
+                    <p className="text-sm text-gray-300 mt-3">Total Supply</p>
+                    <p className="font-semibold text-white">{watch('totalSupply') || '—'}</p>
+                    <p className="text-sm text-gray-300 mt-3">Owner</p>
+                    <p className="font-mono text-white break-all">{watch('owner') || '—'}</p>
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-[#000000] mb-2">Guidelines</h3>
-                  <ul className="text-sm text-[#222222] list-disc pl-5 space-y-1">
+                  <h3 className="text-lg font-semibold text-white mb-2">Guidelines</h3>
+                  <ul className="text-sm text-gray-300 list-disc pl-5 space-y-1">
                     <li>Symbol should be 2–6 characters; uppercase is recommended.</li>
                     <li>Total Supply is the initial number of tokens to mint.</li>
                     <li>Owner Address will become the token contract owner.</li>

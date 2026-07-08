@@ -222,8 +222,8 @@ export default function BurnPage() {
       <div className="min-h-screen py-8 relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-[#000000] mb-2">Burn Tokens</h1>
-            <p className="text-[#222222]">
+            <h1 className="text-3xl font-bold text-white mb-2">Burn Tokens</h1>
+            <p className="text-gray-300">
               Permanently burn tokens by sending them to a dead address. This action cannot be undone.
             </p>
           </div>
@@ -235,7 +235,7 @@ export default function BurnPage() {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
                   {/* Token Address */}
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-[#000000]">Token Information</h3>
+                    <h3 className="text-lg font-semibold text-white">Token Information</h3>
                     <FormField
                       label="Token Address"
                       placeholder="0x..."
@@ -243,9 +243,9 @@ export default function BurnPage() {
                       {...register('tokenAddress')}
                     />
                     {tokenAddress && isValidAddress(tokenAddress) && balance !== undefined && (
-                      <div className="mt-4 p-4 bg-white/70 backdrop-blur-sm border border-[#000000]/20 rounded-lg">
-                        <p className="text-sm text-[#222222]">Your Balance</p>
-                        <p className="text-lg font-bold text-[#000000] break-all break-words overflow-wrap-anywhere">{balanceFormatted} tokens</p>
+                      <div className="mt-4 p-4 bg-black/70 backdrop-blur-sm border border-white/20 rounded-lg">
+                        <p className="text-sm text-gray-300">Your Balance</p>
+                        <p className="text-lg font-bold text-white break-all break-words overflow-wrap-anywhere">{balanceFormatted} tokens</p>
                       </div>
                     )}
                   </div>
@@ -265,7 +265,7 @@ export default function BurnPage() {
                           onClick={() => {
                             setValue('amount', balanceFormatted);
                           }}
-                          className="text-sm text-[#000000] hover:text-[#000000] underline"
+                          className="text-sm text-white hover:text-white underline"
                         >
                           Use Max Balance
                         </button>
@@ -289,7 +289,7 @@ export default function BurnPage() {
                     >
                       {isLoading || isWritePending || isConfirming ? (
                         <div className="flex items-center justify-center">
-                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#000000] mr-2"></div>
+                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                           {isConfirming ? 'Confirming...' : 'Burning...'}
                         </div>
                       ) : (
@@ -304,25 +304,25 @@ export default function BurnPage() {
             {/* Right: Summary Panel */}
             <div className="lg:col-span-4">
               <div className="card p-6 lg:sticky lg:top-24 space-y-4">
-                <h3 className="text-lg font-semibold text-[#000000]">Summary</h3>
+                <h3 className="text-lg font-semibold text-white">Summary</h3>
                 
-                <div className="bg-white/70 backdrop-blur-sm border border-[#000000]/20 rounded-lg p-4 overflow-hidden">
-                  <p className="text-sm text-[#222222]">Token Address</p>
-                  <p className="text-xs font-mono text-[#000000] break-all mt-1">
+                <div className="bg-black/70 backdrop-blur-sm border border-white/20 rounded-lg p-4 overflow-hidden">
+                  <p className="text-sm text-gray-300">Token Address</p>
+                  <p className="text-xs font-mono text-white break-all mt-1">
                     {tokenAddress || 'Not specified'}
                   </p>
                   {tokenAddress && isValidAddress(tokenAddress) && (
                     <>
-                      <p className="text-sm text-[#222222] mt-4">Your Balance</p>
-                      <p className="text-lg font-bold text-[#000000] break-words overflow-wrap-anywhere min-w-0">{balanceFormatted}</p>
-                      <p className="text-sm text-[#222222] mt-4">Amount to Burn</p>
-                      <p className="text-lg font-bold text-[#000000] break-words overflow-wrap-anywhere min-w-0">
+                      <p className="text-sm text-gray-300 mt-4">Your Balance</p>
+                      <p className="text-lg font-bold text-white break-words overflow-wrap-anywhere min-w-0">{balanceFormatted}</p>
+                      <p className="text-sm text-gray-300 mt-4">Amount to Burn</p>
+                      <p className="text-lg font-bold text-white break-words overflow-wrap-anywhere min-w-0">
                         {amount && !isNaN(Number(amount)) ? Number(amount).toLocaleString() : '0'} tokens
                       </p>
                       {amount && !isNaN(Number(amount)) && balance && (
                         <>
-                          <p className="text-sm text-[#222222] mt-4">Balance After Burn</p>
-                          <p className="text-lg font-bold text-[#000000] break-words overflow-wrap-anywhere min-w-0">
+                          <p className="text-sm text-gray-300 mt-4">Balance After Burn</p>
+                          <p className="text-lg font-bold text-white break-words overflow-wrap-anywhere min-w-0">
                             {(Number(balanceFormatted) - Number(amount)).toLocaleString()} tokens
                           </p>
                         </>
@@ -331,9 +331,9 @@ export default function BurnPage() {
                   )}
                 </div>
 
-                <div className="bg-white/70 backdrop-blur-sm border border-[#000000]/20 rounded-lg p-4">
-                  <p className="text-sm text-[#222222] mb-2">How it works:</p>
-                  <ul className="text-xs text-[#666666] space-y-1 list-disc list-inside">
+                <div className="bg-black/70 backdrop-blur-sm border border-white/20 rounded-lg p-4">
+                  <p className="text-sm text-gray-300 mb-2">How it works:</p>
+                  <ul className="text-xs text-gray-400 space-y-1 list-disc list-inside">
                     <li>Tokens are sent to a dead address (0x...dEaD)</li>
                     <li>This permanently removes them from circulation</li>
                     <li>The action cannot be undone</li>

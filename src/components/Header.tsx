@@ -6,10 +6,10 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-[#000000]/15">
+    <header className="sticky top-0 z-50 w-full bg-black/90 backdrop-blur-md border-b border-white/15">
       <div className="flex h-16 items-center justify-between px-6">
         <div className="flex items-center">
-          <Link href="/" className="flex items-center gap-3 text-[#000000]">
+          <Link href="/" className="flex items-center gap-3 text-white">
             <Image
               src="/chestfi-icon.png"
               alt="ChestFi"
@@ -18,7 +18,7 @@ export function Header() {
               className="h-10 w-10 rounded-lg object-cover bg-black"
               priority
             />
-            <span className="text-xl font-bold">ChestFi</span>
+            <span className="text-xl font-bold text-white">ChestFi</span>
           </Link>
         </div>
         

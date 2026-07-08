@@ -96,7 +96,7 @@ export function Sidebar() {
     <>
       {/* Mobile menu button */}
       <button
-        className="lg:hidden fixed top-4 right-4 z-50 p-2 rounded-md bg-white/90 text-[#000000] backdrop-blur-md border border-[#000000]/20 shadow-sm"
+        className="lg:hidden fixed top-4 right-4 z-50 p-2 rounded-md bg-black/90 text-white backdrop-blur-md border border-white/20 shadow-sm"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -104,7 +104,7 @@ export function Sidebar() {
 
       {/* Sidebar */}
       <div className={cn(
-        "fixed top-16 left-0 z-[9999] pointer-events-auto w-64 h-[calc(100vh-4rem)] bg-white/90 backdrop-blur-md border-r border-[#000000]/15 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0 lg:fixed lg:top-16",
+        "fixed top-16 left-0 z-[9999] pointer-events-auto w-64 h-[calc(100vh-4rem)] bg-black/90 backdrop-blur-md border-r border-white/15 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0 lg:fixed lg:top-16",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         <div className="flex flex-col h-full">
@@ -122,7 +122,7 @@ export function Sidebar() {
                         type="button"
                         className={cn(
                           'w-full flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors',
-                          isSectionActive ? 'bg-[#CCFF00] text-[#000000]' : 'text-[#222222] hover:bg-[#000000]/5 hover:text-[#000000]'
+                          isSectionActive ? 'bg-[#CCFF00] text-black' : 'text-gray-300 hover:bg-white/10 hover:text-white'
                         )}
                         onClick={(e) => {
                           e.preventDefault();
@@ -133,7 +133,7 @@ export function Sidebar() {
                         <item.icon
                           className={cn(
                             'mr-3 h-5 w-5 flex-shrink-0',
-                            isSectionActive ? 'text-[#000000]' : 'text-[#666666]'
+                            isSectionActive ? 'text-black' : 'text-gray-400'
                           )}
                         />
                         <span className="flex-1 text-left">{item.name}</span>
@@ -141,7 +141,7 @@ export function Sidebar() {
                           className={cn(
                             'h-4 w-4 transition-transform',
                             isSectionOpen ? 'rotate-180' : 'rotate-0',
-                            isSectionActive ? 'text-[#000000]' : 'text-[#666666]'
+                            isSectionActive ? 'text-black' : 'text-gray-400'
                           )}
                         />
                       </button>
@@ -152,7 +152,7 @@ export function Sidebar() {
                             const isExternal = child.href.startsWith('http');
                             const className = cn(
                               'group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors',
-                              isActive ? 'bg-[#CCFF00] text-[#000000]' : 'text-[#222222] hover:bg-[#000000]/5 hover:text-[#000000]'
+                              isActive ? 'bg-[#CCFF00] text-black' : 'text-gray-300 hover:bg-white/10 hover:text-white'
                             );
                             
                             if (isExternal) {
@@ -203,8 +203,8 @@ export function Sidebar() {
                     className={cn(
                       'group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors',
                       isActive
-                        ? 'bg-[#CCFF00] text-[#000000]'
-                        : 'text-[#222222] hover:bg-[#000000]/5 hover:text-[#000000]'
+                        ? 'bg-[#CCFF00] text-black'
+                        : 'text-gray-300 hover:bg-white/10 hover:text-white'
                     )}
                     onClick={() => {
                       setIsOpen(false);
@@ -213,7 +213,7 @@ export function Sidebar() {
                     <link.icon
                       className={cn(
                         'mr-3 h-5 w-5 flex-shrink-0',
-                        isActive ? 'text-[#000000]' : 'text-[#666666] group-hover:text-[#000000]'
+                        isActive ? 'text-black' : 'text-gray-400 group-hover:text-white'
                       )}
                     />
                     {link.name}
@@ -225,7 +225,7 @@ export function Sidebar() {
           
           {/* Mobile Connect Wallet Button */}
           <div className="lg:hidden px-2 pb-4">
-            <div className="border-t border-[#000000]/15 pt-4">
+            <div className="border-t border-white/15 pt-4">
               <ConnectButton />
             </div>
           </div>
@@ -235,7 +235,7 @@ export function Sidebar() {
       {/* Overlay for mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-[#000000]/10 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/70 lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
