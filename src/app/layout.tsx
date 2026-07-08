@@ -44,7 +44,7 @@ export default function RootLayout({
             <Header />
             <div className="flex relative">
               <Sidebar />
-              <main className="flex-1 lg:ml-56 min-h-screen">
+              <main className="flex-1 lg:ml-56 min-h-screen pt-24">
                 {children}
               </main>
             </div>
