@@ -101,7 +101,7 @@ function Sparkline() {
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen px-4 py-20 text-white sm:px-6 lg:px-8 lg:py-14">
+    <div className="min-h-screen px-4 pb-20 pt-28 text-white sm:px-6 lg:px-8 lg:pb-14 lg:pt-28">
       <div className="mx-auto max-w-[1280px] space-y-6">
         <section className="relative overflow-hidden rounded-lg border border-white/12 bg-[#070807] p-3 shadow-[0_0_40px_rgba(204,255,0,0.08)]">
           <div className="relative grid min-h-[220px] gap-6 overflow-hidden rounded-lg border border-[#CCFF00]/20 bg-[linear-gradient(110deg,rgba(255,255,255,0.07),rgba(255,255,255,0.015)_45%,rgba(204,255,0,0.08))] p-7 md:grid-cols-[1fr_420px] md:p-9">

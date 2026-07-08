@@ -1,55 +1,76 @@
 'use client';
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount, useBalance } from 'wagmi';
 
 export function Header() {
-  return (
-    <header className="fixed right-4 top-3 z-50 hidden lg:block">
-      <ConnectButton.Custom>
-        {({ account, chain, mounted, openAccountModal, openChainModal, openConnectModal }) => {
-          const ready = mounted;
-          const connected = ready && account && chain;
+  const { address } = useAccount();
+  const { data: balance } = useBalance({
+    address,
+    chainId: 4663,
+    query: {
+      enabled: !!address,
+      refetchInterval: 10000,
+    },
+  });
 
-          return (
-            <div>
-              {!connected ? (
-                <button
-                  type="button"
-                  onClick={ready ? openConnectModal : undefined}
-                  className="rounded-lg border border-[#CCFF00]/70 bg-[#CCFF00] px-5 py-3 text-sm font-bold text-black shadow-[0_0_22px_rgba(204,255,0,0.18)] transition-colors hover:bg-white"
-                >
-                  Connect Wallet
-                </button>
-              ) : (
-                <div className="flex items-center gap-2">
+  const balanceLabel = balance ? `${Number(balance.formatted).toFixed(4)} ${balance.symbol}` : '0.0000 ETH';
+
+  return (
+    <header className="fixed left-16 right-4 top-3 z-50 lg:left-60">
+      <div className="flex h-16 items-center justify-end rounded-lg border border-white/10 bg-[#060706]/95 px-4 shadow-[0_14px_40px_rgba(0,0,0,0.48)] backdrop-blur-md">
+        <ConnectButton.Custom>
+          {({ account, chain, mounted, openAccountModal, openChainModal, openConnectModal }) => {
+            const ready = mounted;
+            const connected = ready && account && chain;
+
+            return (
+              <div className="flex items-center gap-2">
+                {connected && (
+                  <div className="hidden rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-bold text-white sm:block">
+                    {balanceLabel}
+                  </div>
+                )}
+
+                {!connected ? (
                   <button
                     type="button"
-                    onClick={openChainModal}
-                    className="rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-bold text-white hover:border-[#CCFF00]/50 hover:text-[#CCFF00]"
+                    onClick={ready ? openConnectModal : undefined}
+                    className="rounded-lg border border-[#CCFF00]/70 bg-[#CCFF00] px-5 py-3 text-sm font-bold text-black shadow-[0_0_22px_rgba(204,255,0,0.18)] transition-colors hover:bg-white"
                   >
-                    {chain.hasIcon && chain.iconUrl ? (
-                      <span
-                        className="mr-2 inline-block h-3 w-3 rounded-full align-middle"
-                        style={{ background: chain.iconBackground }}
-                      />
-                    ) : (
-                      <span className="mr-2 inline-block h-3 w-3 rounded-full bg-[#CCFF00] align-middle" />
-                    )}
-                    {chain.name}
+                    Connect Wallet
                   </button>
-                  <button
-                    type="button"
-                    onClick={openAccountModal}
-                    className="rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-bold text-white hover:border-[#CCFF00]/50 hover:text-[#CCFF00]"
-                  >
-                    {account.displayName}
-                  </button>
-                </div>
-              )}
-            </div>
-          );
-        }}
-      </ConnectButton.Custom>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={openChainModal}
+                      className="hidden rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-bold text-white hover:border-[#CCFF00]/50 hover:text-[#CCFF00] md:block"
+                    >
+                      {chain.hasIcon && chain.iconUrl ? (
+                        <span
+                          className="mr-2 inline-block h-3 w-3 rounded-full align-middle"
+                          style={{ background: chain.iconBackground }}
+                        />
+                      ) : (
+                        <span className="mr-2 inline-block h-3 w-3 rounded-full bg-[#CCFF00] align-middle" />
+                      )}
+                      {chain.name}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={openAccountModal}
+                      className="rounded-lg border border-[#CCFF00]/70 bg-[#CCFF00] px-4 py-3 text-sm font-bold text-black shadow-[0_0_22px_rgba(204,255,0,0.18)] transition-colors hover:bg-white"
+                    >
+                      {account.displayName}
+                    </button>
+                  </div>
+                )}
+              </div>
+            );
+          }}
+        </ConnectButton.Custom>
+      </div>
     </header>
   );
 }
