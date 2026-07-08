@@ -129,32 +129,32 @@ export default function MyLockPage() {
         )}
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-[#1C180D] mb-2">My Locks</h1>
-            <p className="text-[#3f3a2b]">Manage and withdraw your unlocked tokens.</p>
+            <h1 className="text-3xl font-bold text-[#000000] mb-2">My Locks</h1>
+            <p className="text-[#222222]">Manage and withdraw your unlocked tokens.</p>
           </div>
 
           <div className="card p-6 overflow-x-auto">
             {isLoading ? (
-              <p className="text-[#3f3a2b]">Loading…</p>
+              <p className="text-[#222222]">Loading…</p>
             ) : rows.length === 0 ? (
-              <p className="text-[#3f3a2b]">No active locks available.</p>
+              <p className="text-[#222222]">No active locks available.</p>
             ) : (
               <>
                 {/* Summary */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <div className="rounded-lg border border-[#1C180D]/20 p-4 bg-white/70 backdrop-blur-sm">
-                    <p className="text-xs text-[#6b6657]">Total Locks</p>
-                    <p className="text-2xl font-semibold text-[#1C180D]">{totalLocksCount}</p>
+                  <div className="rounded-lg border border-[#000000]/20 p-4 bg-white/70 backdrop-blur-sm">
+                    <p className="text-xs text-[#666666]">Total Locks</p>
+                    <p className="text-2xl font-semibold text-[#000000]">{totalLocksCount}</p>
                   </div>
-                  <div className="rounded-lg border border-[#1C180D]/20 p-4 bg-white/70 backdrop-blur-sm">
-                    <p className="text-xs text-[#6b6657]">Total Unlock</p>
-                    <p className="text-2xl font-semibold text-[#1C180D]">{totalUnlockCount}</p>
+                  <div className="rounded-lg border border-[#000000]/20 p-4 bg-white/70 backdrop-blur-sm">
+                    <p className="text-xs text-[#666666]">Total Unlock</p>
+                    <p className="text-2xl font-semibold text-[#000000]">{totalUnlockCount}</p>
                   </div>
                 </div>
 
-                <table className="min-w-full text-sm text-[#1C180D]">
+                <table className="min-w-full text-sm text-[#000000]">
                   <thead>
-                    <tr className="text-left text-[#3f3a2b]">
+                    <tr className="text-left text-[#222222]">
                       <th className="py-2 pr-4">Token</th>
                       <th className="py-2 pr-4">Amount</th>
                       <th className="py-2 pr-4">Unlock Time</th>
@@ -163,12 +163,12 @@ export default function MyLockPage() {
                   </thead>
                   <tbody>
                     {rows.map((row, idx) => (
-                      <tr key={row?.lockId ? String(row.lockId) : `row-${idx}`} className="border-t border-[#1C180D]/20 hover:bg-[#1C180D]/5">
+                      <tr key={row?.lockId ? String(row.lockId) : `row-${idx}`} className="border-t border-[#000000]/20 hover:bg-[#000000]/5">
                         <td className="py-3 pr-4 font-mono break-all">
                           {row?.token || '-'}
                           <button
                             onClick={() => navigator.clipboard.writeText(row.token)}
-                            className="ml-2 text-xs text-[#6b6657] hover:text-[#1C180D] underline"
+                            className="ml-2 text-xs text-[#666666] hover:text-[#000000] underline"
                           >
                             Copy
                           </button>
@@ -179,7 +179,7 @@ export default function MyLockPage() {
                           <div className="flex flex-wrap gap-2">
                             <button
                               type="button"
-                              className="px-3 py-1 rounded-md border border-[#1C180D] text-[#1C180D] hover:bg-[#1C180D]/5 transition"
+                              className="px-3 py-1 rounded-md border border-[#000000] text-[#000000] hover:bg-[#000000]/5 transition"
                               onClick={() => handleShare(row.token, row.owner, row.lockId)}
                             >
                               {copiedLockId === row.lockId ? 'Link Copied' : 'Share'}
@@ -202,8 +202,8 @@ export default function MyLockPage() {
           </div>
 
           {txHash && (
-            <div className="mt-6 p-4 bg-white border border-[#1C180D] rounded-lg">
-              <a href={explorerUrl('', txHash)} target="_blank" rel="noopener noreferrer" className="text-[#1C180D] underline">View transaction on explorer</a>
+            <div className="mt-6 p-4 bg-white border border-[#000000] rounded-lg">
+              <a href={explorerUrl('', txHash)} target="_blank" rel="noopener noreferrer" className="text-[#000000] underline">View transaction on explorer</a>
             </div>
           )}
         </div>

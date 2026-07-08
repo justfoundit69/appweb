@@ -24,10 +24,10 @@ export const metadata: Metadata = {
   description: 'Tools for token creation, locking, vesting, and more on Robinhood Chain. Built for developers, teams, and projects that need reliable blockchain infrastructure.',
   icons: {
     icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.png', type: 'image/png' },
     ],
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   },
 };
 

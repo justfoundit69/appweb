@@ -304,8 +304,8 @@ export default function TokenLockerPage() {
       <div className="min-h-screen py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-[#1C180D] mb-2">Create Lock</h1>
-            <p className="text-[#3f3a2b]">Lock your tokens until a specified unlock date.</p>
+            <h1 className="text-3xl font-bold text-[#000000] mb-2">Create Lock</h1>
+            <p className="text-[#222222]">Lock your tokens until a specified unlock date.</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -377,16 +377,16 @@ export default function TokenLockerPage() {
                 </form>
 
                 {isSuccess && hash && lastTxType === 'lock' && (
-                  <div className="mt-8 p-4 bg-white border border-[#1C180D] rounded-lg">
-                    <h3 className="text-lg font-semibold text-[#1C180D] mb-2">Token Locked Successfully!</h3>
-                    <p className="text-[#1C180D] mb-4">
+                  <div className="mt-8 p-4 bg-white border border-[#000000] rounded-lg">
+                    <h3 className="text-lg font-semibold text-[#000000] mb-2">Token Locked Successfully!</h3>
+                    <p className="text-[#000000] mb-4">
                       Your token has been locked with the specified parameters.
                     </p>
                     <a
                       href={explorerUrl('', hash)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-[#1C180D] hover:text-[#1C180D] font-medium"
+                      className="inline-flex items-center text-[#000000] hover:text-[#000000] font-medium"
                     >
                       View Transaction on Explorer
                       <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -401,18 +401,18 @@ export default function TokenLockerPage() {
             {/* Right: Info Panel */}
             <div className="lg:col-span-4">
               <div className="card p-6 lg:sticky lg:top-24 space-y-4">
-                <h3 className="text-lg font-semibold text-[#1C180D]">Lock Information</h3>
+                <h3 className="text-lg font-semibold text-[#000000]">Lock Information</h3>
                 
                 {/* Fee Information */}
-                <div className="bg-white/70 backdrop-blur-sm border border-[#1C180D]/20 rounded-lg p-4">
-                  <h4 className="font-medium text-[#1C180D] mb-2">Locking Fee</h4>
-                  <p className="text-sm text-[#3f3a2b]">
+                <div className="bg-white/70 backdrop-blur-sm border border-[#000000]/20 rounded-lg p-4">
+                  <h4 className="font-medium text-[#000000] mb-2">Locking Fee</h4>
+                  <p className="text-sm text-[#222222]">
                     Fee {feeAmount ? formatUnits(feeAmount as bigint, 18) : '0.00235'} ETH will be charged for each lock operation.
                   </p>
                 </div>
 
-                <h3 className="text-lg font-semibold text-[#1C180D]">Tips</h3>
-                <ul className="text-sm text-[#3f3a2b] list-disc pl-5 space-y-1">
+                <h3 className="text-lg font-semibold text-[#000000]">Tips</h3>
+                <ul className="text-sm text-[#222222] list-disc pl-5 space-y-1">
                   <li className="text-red-400 font-medium">⚠️ Do not lock tokens with tax / fee-on-transfer / rebasing tokens.</li>
                   <li>Ensure your token supports `approve` for the locker.</li>
                   <li>Use a future date for `Lock Until`.</li>

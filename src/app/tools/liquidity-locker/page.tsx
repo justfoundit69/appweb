@@ -96,8 +96,8 @@ export default function LiquidityLockerPage() {
       <div className="min-h-screen py-8 relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-[#1C180D] mb-2">Liquidity Locker</h1>
-            <p className="text-[#3f3a2b]">
+            <h1 className="text-3xl font-bold text-[#000000] mb-2">Liquidity Locker</h1>
+            <p className="text-[#222222]">
               Lock your LP tokens to demonstrate long-term commitment to liquidity provision.
             </p>
           </div>
@@ -108,9 +108,9 @@ export default function LiquidityLockerPage() {
               <div className="fixed top-16 left-0 right-0 lg:left-64 bottom-0 z-40 pointer-events-auto cursor-not-allowed select-none">
                 <div className="absolute inset-0 backdrop-blur-md bg-white/80" />
                 <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-2xl z-20 text-center px-6">
-                  <div className="rounded-lg border-2 border-[#1C180D] bg-white backdrop-blur-sm p-4 shadow-sm">
-                    <p className="font-semibold mb-1 text-[#1C180D]">Coming Soon</p>
-                    <p className="text-sm text-[#3f3a2b]">
+                  <div className="rounded-lg border-2 border-[#000000] bg-white backdrop-blur-sm p-4 shadow-sm">
+                    <p className="font-semibold mb-1 text-[#000000]">Coming Soon</p>
+                    <p className="text-sm text-[#222222]">
                       Liquidity Locker is not available yet. For now, you can use Token Locker to lock your LP tokens.
                     </p>
                   </div>
@@ -183,16 +183,16 @@ export default function LiquidityLockerPage() {
                 </form>
 
                 {isSuccess && hash && (
-                  <div className="mt-8 p-4 bg-white border border-[#1C180D] rounded-lg">
-                    <h3 className="text-lg font-semibold text-[#1C180D] mb-2">LP Token Locked Successfully!</h3>
-                    <p className="text-[#1C180D] mb-4">
+                  <div className="mt-8 p-4 bg-white border border-[#000000] rounded-lg">
+                    <h3 className="text-lg font-semibold text-[#000000] mb-2">LP Token Locked Successfully!</h3>
+                    <p className="text-[#000000] mb-4">
                       Your liquidity token has been locked with the specified parameters.
                     </p>
                     <a
                       href={explorerUrl('', hash)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center text-[#1C180D] hover:text-[#1C180D] font-medium"
+                      className="inline-flex items-center text-[#000000] hover:text-[#000000] font-medium"
                     >
                       View Transaction on Explorer
                       <svg className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -207,8 +207,8 @@ export default function LiquidityLockerPage() {
             {/* Right: Info Panel */}
             <div className={`lg:col-span-4 ${isComingSoon ? 'blur-sm select-none pointer-events-none user-select-none' : ''}`}>
               <div className="card p-6 lg:sticky lg:top-24 space-y-4">
-                <h3 className="text-lg font-semibold text-[#1C180D]">Checklist</h3>
-                <ul className="text-sm text-[#3f3a2b] list-disc pl-5 space-y-1">
+                <h3 className="text-lg font-semibold text-[#000000]">Checklist</h3>
+                <ul className="text-sm text-[#222222] list-disc pl-5 space-y-1">
                   <li>Use the correct LP token contract address.</li>
                   <li>Ensure the amount is in token units.</li>
                   <li>Memo is optional.</li>

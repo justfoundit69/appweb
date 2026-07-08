@@ -16,15 +16,15 @@ export function RequireWallet({ children }: RequireWalletProps) {
   if (!isConnected) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="max-w-md w-full bg-white/70 backdrop-blur-sm rounded-lg shadow-lg border border-[#1C180D]/20 p-8 text-center">
+        <div className="max-w-md w-full bg-white/70 backdrop-blur-sm rounded-lg shadow-lg border border-[#000000]/20 p-8 text-center">
           <div className="mb-6">
             <div className="mx-auto h-12 w-12 rounded-full bg-white flex items-center justify-center mb-4">
               <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-[#1C180D] mb-2">Connect Your Wallet</h2>
-            <p className="text-[#3f3a2b]">
+            <h2 className="text-2xl font-bold text-[#000000] mb-2">Connect Your Wallet</h2>
+            <p className="text-[#222222]">
               Connect your wallet to use tools on Robinhood Chain.
             </p>
           </div>
@@ -39,15 +39,15 @@ export function RequireWallet({ children }: RequireWalletProps) {
   if (chainId !== robinhoodChain.id) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="max-w-md w-full bg-white/70 backdrop-blur-sm rounded-lg shadow-lg border border-[#1C180D]/20 p-8 text-center">
+        <div className="max-w-md w-full bg-white/70 backdrop-blur-sm rounded-lg shadow-lg border border-[#000000]/20 p-8 text-center">
           <div className="mb-6">
             <div className="mx-auto h-12 w-12 rounded-full bg-red-100 flex items-center justify-center mb-4">
               <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-[#1C180D] mb-2">Wrong Network</h2>
-            <p className="text-[#3f3a2b] mb-4">
+            <h2 className="text-2xl font-bold text-[#000000] mb-2">Wrong Network</h2>
+            <p className="text-[#222222] mb-4">
               Please switch to {robinhoodChain.name} to use these tools.
             </p>
             <button
