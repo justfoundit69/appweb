@@ -15,8 +15,8 @@ export function RequireWallet({ children }: RequireWalletProps) {
 
   if (!isConnected) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="max-w-md w-full bg-black/70 backdrop-blur-sm rounded-lg shadow-lg border border-white/20 p-8 text-center">
+      <div className="flex min-h-screen items-center justify-center px-5 py-12 sm:px-6">
+        <div className="w-[20rem] max-w-full rounded-lg border border-white/20 bg-black p-6 text-center sm:w-full sm:max-w-md sm:p-8">
           <div className="mb-6">
             <div className="mx-auto h-12 w-12 rounded-full bg-[#CCFF00] flex items-center justify-center mb-4">
               <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -38,8 +38,8 @@ export function RequireWallet({ children }: RequireWalletProps) {
 
   if (chainId !== robinhoodChain.id) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="max-w-md w-full bg-black/70 backdrop-blur-sm rounded-lg shadow-lg border border-white/20 p-8 text-center">
+      <div className="flex min-h-screen items-center justify-center px-5 py-12 sm:px-6">
+        <div className="w-[20rem] max-w-full rounded-lg border border-white/20 bg-black p-6 text-center sm:w-full sm:max-w-md sm:p-8">
           <div className="mb-6">
             <div className="mx-auto h-12 w-12 rounded-full bg-red-100 flex items-center justify-center mb-4">
               <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

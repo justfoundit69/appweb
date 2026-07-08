@@ -61,10 +61,10 @@ const tools: ToolCard[] = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen px-4 pb-20 text-white sm:px-6 lg:px-8 lg:pb-14">
-      <div className="mx-auto max-w-[1280px] space-y-6">
-        <section className="relative overflow-hidden rounded-lg border border-white/12 bg-[#070807] p-3">
-          <div className="relative grid min-h-[220px] gap-6 overflow-hidden rounded-lg border border-white/10 bg-[#0b0c0b] p-7 md:grid-cols-[1fr_420px] md:p-9">
+    <div className="min-h-screen px-5 pb-24 pt-28 text-white sm:px-6 sm:pt-20 lg:px-8 lg:pb-14 lg:pt-0">
+      <div className="mx-auto w-[20rem] max-w-full space-y-7 sm:w-full sm:max-w-[1280px] sm:space-y-6">
+        <section className="relative overflow-hidden rounded-lg border border-white/12 bg-[#070807] p-2 sm:p-3">
+          <div className="relative grid min-h-[220px] gap-6 overflow-hidden rounded-lg border border-white/10 bg-[#0b0c0b] p-5 sm:p-7 md:grid-cols-[1fr_420px] md:p-9">
             <div className="relative flex flex-col justify-center">
               <div className="mb-5 flex items-center gap-2 text-xs font-semibold text-gray-300">
                 <span className="h-2 w-2 rounded-full bg-[#CCFF00]" />
@@ -76,8 +76,8 @@ export default function HomePage() {
               <p className="mt-4 max-w-xl text-base leading-7 text-gray-200 md:text-lg">
                 Tools for token creation, locking, vesting, and more on Robinhood Chain.
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href="/create-token" className="btn-primary inline-flex items-center justify-center gap-3 px-7 py-3 text-base">
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-3">
+                <Link href="/create-token" className="btn-primary inline-flex w-full items-center justify-center gap-3 px-7 py-3 text-base sm:w-auto">
                   Get Started
                   <ArrowRight className="h-5 w-5" />
                 </Link>
@@ -85,7 +85,7 @@ export default function HomePage() {
                   href="https://docs.robinhood.com/chain/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary inline-flex items-center justify-center gap-3 px-7 py-3 text-base"
+                  className="btn-secondary inline-flex w-full items-center justify-center gap-3 px-7 py-3 text-base sm:w-auto"
                 >
                   <BookOpen className="h-4 w-4" />
                   View Docs
@@ -110,12 +110,12 @@ export default function HomePage() {
 
         <section>
           <h2 className="mb-4 text-2xl font-bold text-white">Tools</h2>
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-6">
+          <div className="grid gap-5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-6">
             {tools.map((tool) => (
               <Link
                 key={tool.name}
                 href={tool.href}
-                className="group flex min-h-[150px] flex-col rounded-lg border border-white/10 bg-white/[0.045] p-4 transition-colors hover:border-[#CCFF00]/45 hover:bg-white/[0.07]"
+                className="group flex min-h-[150px] flex-col rounded-lg border border-white/10 bg-white/[0.045] p-5 transition-colors hover:border-[#CCFF00]/45 hover:bg-white/[0.07] sm:p-4"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-[#CCFF00]/25 bg-[#CCFF00]/12 text-[#CCFF00]">
                   <tool.icon className="h-5 w-5" />

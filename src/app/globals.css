@@ -85,7 +85,8 @@ body {
 }
 
 /* Apply PPMori fonts globally */
-* {
+*, *::before, *::after {
+  box-sizing: border-box;
   font-family: var(--font-pp-mori-regular), Arial, Helvetica, sans-serif;
 }
 
