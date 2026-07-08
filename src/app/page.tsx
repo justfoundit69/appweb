@@ -13,18 +13,12 @@ import {
   Sparkles,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { DashboardStats } from '@/components/DashboardStats';
 
 type ToolCard = {
   name: string;
   description: string;
   href: string;
-  icon: LucideIcon;
-};
-
-type StatCard = {
-  label: string;
-  value: string;
-  delta: string;
   icon: LucideIcon;
 };
 
@@ -66,38 +60,6 @@ const tools: ToolCard[] = [
     icon: Flame,
   },
 ];
-
-const stats: StatCard[] = [
-  { label: 'Total Locks', value: '1,248', delta: '+18.6%', icon: Lock },
-  { label: 'Total Tokens Created', value: '3,542', delta: '+24.3%', icon: Coins },
-  { label: 'Total Value Locked', value: '$24.68M', delta: '+31.2%', icon: Shield },
-  { label: 'Active Vestings', value: '892', delta: '+12.7%', icon: Calendar },
-];
-
-const activities = [
-  { label: 'Token Locked', detail: '100,000 CHFI locked', address: '0x8f...a2b1', time: '2m ago', icon: Lock },
-  { label: 'Liquidity Locked', detail: '50,000 USDC / 25,000 CHFI', address: '0x3c...9d7e', time: '15m ago', icon: Calendar },
-];
-
-function Sparkline() {
-  return (
-    <svg viewBox="0 0 92 36" className="h-9 w-24 text-[#CCFF00]" aria-hidden="true">
-      <path
-        d="M2 30 L12 24 L20 28 L30 18 L40 21 L50 12 L60 17 L70 8 L82 13 L90 3"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="3"
-      />
-      <path
-        d="M2 36 L2 30 L12 24 L20 28 L30 18 L40 21 L50 12 L60 17 L70 8 L82 13 L90 3 L90 36 Z"
-        fill="currentColor"
-        opacity="0.14"
-      />
-    </svg>
-  );
-}
 
 export default function HomePage() {
   return (
@@ -149,27 +111,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="rounded-lg border border-white/10 bg-white/[0.045] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.28)]">
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-start gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-[#CCFF00]/25 bg-[#CCFF00]/10 text-[#CCFF00] shadow-[0_0_18px_rgba(204,255,0,0.16)]">
-                    <stat.icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400">{stat.label}</p>
-                    <p className="mt-1 text-2xl font-bold text-white">{stat.value}</p>
-                    <p className="mt-2 text-xs text-gray-500">
-                      <span className="font-semibold text-[#CCFF00]">{stat.delta}</span> vs last 7d
-                    </p>
-                  </div>
-                </div>
-                <Sparkline />
-              </div>
-            </div>
-          ))}
-        </section>
+        <DashboardStats />
 
         <section>
           <h2 className="mb-4 text-2xl font-bold text-white">Tools</h2>
@@ -205,21 +147,12 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="space-y-3">
-              {activities.map((activity) => (
-                <div key={activity.label} className="flex items-center gap-3 rounded-lg border border-white/8 bg-black/30 p-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#CCFF00]/10 text-[#CCFF00]">
-                    <activity.icon className="h-5 w-5" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold text-white">{activity.label}</p>
-                    <p className="truncate text-xs text-gray-400">{activity.detail}</p>
-                  </div>
-                  <div className="text-right text-xs text-gray-500">
-                    <p>{activity.address}</p>
-                    <p>{activity.time}</p>
-                  </div>
-                </div>
-              ))}
+              <div className="rounded-lg border border-white/8 bg-black/30 p-4">
+                <p className="text-sm font-semibold text-white">No live activity feed yet</p>
+                <p className="mt-2 text-sm leading-6 text-gray-400">
+                  Recent activity needs an event indexer or explorer API. Dummy activity has been removed.
+                </p>
+              </div>
             </div>
           </div>
 
