@@ -50,9 +50,9 @@ function helperText(isLoading: boolean, isError: boolean, enabled: boolean, live
 
 function StatCardItem({ stat }: { stat: StatCard }) {
   return (
-    <div className="rounded-lg border border-white/10 bg-white/[0.045] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.28)]">
+    <div className="rounded-lg border border-white/10 bg-white/[0.045] p-4">
       <div className="flex items-start gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-[#CCFF00]/25 bg-[#CCFF00]/10 text-[#CCFF00] shadow-[0_0_18px_rgba(204,255,0,0.16)]">
+        <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-[#CCFF00]/25 bg-[#CCFF00]/10 text-[#CCFF00]">
           <stat.icon className="h-5 w-5" />
         </div>
         <div className="min-w-0">

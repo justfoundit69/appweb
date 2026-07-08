@@ -18,7 +18,7 @@ export function Header() {
 
   return (
     <header className="fixed left-16 right-4 top-3 z-50 lg:left-60">
-      <div className="flex h-16 items-center justify-end rounded-lg border border-white/10 bg-[#060706]/95 px-4 shadow-[0_14px_40px_rgba(0,0,0,0.48)] backdrop-blur-md">
+      <div className="flex h-16 items-center justify-end rounded-lg border border-white/10 bg-[#060706] px-4">
         <ConnectButton.Custom>
           {({ account, chain, mounted, openAccountModal, openChainModal, openConnectModal }) => {
             const ready = mounted;
@@ -36,7 +36,7 @@ export function Header() {
                   <button
                     type="button"
                     onClick={ready ? openConnectModal : undefined}
-                    className="rounded-lg border border-[#CCFF00]/70 bg-[#CCFF00] px-5 py-3 text-sm font-bold text-black shadow-[0_0_22px_rgba(204,255,0,0.18)] transition-colors hover:bg-white"
+                    className="rounded-lg border border-[#CCFF00] bg-[#CCFF00] px-5 py-3 text-sm font-bold text-black transition-colors hover:bg-white"
                   >
                     Connect Wallet
                   </button>
@@ -60,7 +60,7 @@ export function Header() {
                     <button
                       type="button"
                       onClick={openAccountModal}
-                      className="rounded-lg border border-[#CCFF00]/70 bg-[#CCFF00] px-4 py-3 text-sm font-bold text-black shadow-[0_0_22px_rgba(204,255,0,0.18)] transition-colors hover:bg-white"
+                      className="rounded-lg border border-[#CCFF00] bg-[#CCFF00] px-4 py-3 text-sm font-bold text-black transition-colors hover:bg-white"
                     >
                       {account.displayName}
                     </button>

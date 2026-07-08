@@ -96,7 +96,7 @@ export function Sidebar() {
     cn(
       'group flex w-full items-center rounded-md px-3 py-3 text-sm font-medium transition-all',
       active
-        ? 'border border-[#CCFF00]/40 bg-[#CCFF00]/15 text-[#CCFF00] shadow-[0_0_22px_rgba(204,255,0,0.18)]'
+        ? 'border border-[#CCFF00]/40 bg-[#CCFF00]/15 text-[#CCFF00]'
         : 'text-gray-300 hover:bg-white/10 hover:text-white'
     );
 
@@ -106,7 +106,7 @@ export function Sidebar() {
   return (
     <>
       <button
-        className="fixed left-4 top-4 z-50 rounded-md border border-white/20 bg-black/90 p-2 text-white shadow-sm backdrop-blur-md lg:hidden"
+        className="fixed left-4 top-4 z-50 rounded-md border border-white/20 bg-black p-2 text-white lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
         type="button"
       >
@@ -115,7 +115,7 @@ export function Sidebar() {
 
       <aside
         className={cn(
-          'fixed left-0 top-0 z-[9999] m-2 flex h-[calc(100vh-1rem)] w-56 flex-col rounded-lg border border-white/15 bg-[#060706]/95 shadow-[0_0_36px_rgba(204,255,0,0.08)] backdrop-blur-md transition-transform duration-200 lg:translate-x-0',
+          'fixed left-0 top-0 z-[9999] m-2 flex h-[calc(100vh-1rem)] w-56 flex-col rounded-lg border border-white/15 bg-[#060706] transition-transform duration-200 lg:translate-x-0',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >

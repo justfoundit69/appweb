@@ -63,9 +63,8 @@ export default function HomePage() {
   return (
     <div className="min-h-screen px-4 pb-20 pt-28 text-white sm:px-6 lg:px-8 lg:pb-14 lg:pt-28">
       <div className="mx-auto max-w-[1280px] space-y-6">
-        <section className="relative overflow-hidden rounded-lg border border-white/12 bg-[#070807] p-3 shadow-[0_0_40px_rgba(204,255,0,0.08)]">
-          <div className="relative grid min-h-[220px] gap-6 overflow-hidden rounded-lg border border-[#CCFF00]/20 bg-[linear-gradient(110deg,rgba(255,255,255,0.07),rgba(255,255,255,0.015)_45%,rgba(204,255,0,0.08))] p-7 md:grid-cols-[1fr_420px] md:p-9">
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(204,255,0,0.06)_1px,transparent_1px),linear-gradient(0deg,rgba(204,255,0,0.04)_1px,transparent_1px)] bg-[size:42px_42px] opacity-30" />
+        <section className="relative overflow-hidden rounded-lg border border-white/12 bg-[#070807] p-3">
+          <div className="relative grid min-h-[220px] gap-6 overflow-hidden rounded-lg border border-white/10 bg-[#0b0c0b] p-7 md:grid-cols-[1fr_420px] md:p-9">
             <div className="relative flex flex-col justify-center">
               <div className="mb-5 flex items-center gap-2 text-xs font-semibold text-gray-300">
                 <span className="h-2 w-2 rounded-full bg-[#CCFF00]" />
@@ -101,7 +100,7 @@ export default function HomePage() {
                 width={300}
                 height={228}
                 priority
-                className="h-[170px] w-[230px] object-contain drop-shadow-[0_0_28px_rgba(204,255,0,0.55)]"
+                className="h-[170px] w-[230px] object-contain"
               />
             </div>
           </div>
@@ -116,9 +115,9 @@ export default function HomePage() {
               <Link
                 key={tool.name}
                 href={tool.href}
-                className="group flex min-h-[150px] flex-col rounded-lg border border-white/10 bg-white/[0.045] p-4 shadow-[0_14px_30px_rgba(0,0,0,0.28)] transition-all hover:border-[#CCFF00]/45 hover:bg-white/[0.07] hover:shadow-[0_0_24px_rgba(204,255,0,0.12)]"
+                className="group flex min-h-[150px] flex-col rounded-lg border border-white/10 bg-white/[0.045] p-4 transition-colors hover:border-[#CCFF00]/45 hover:bg-white/[0.07]"
               >
-                <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-[#CCFF00]/25 bg-[#CCFF00]/12 text-[#CCFF00] shadow-[0_0_18px_rgba(204,255,0,0.14)]">
+                <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-[#CCFF00]/25 bg-[#CCFF00]/12 text-[#CCFF00]">
                   <tool.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-5 text-base font-bold text-white">{tool.name}</h3>
