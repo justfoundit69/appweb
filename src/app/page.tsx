@@ -68,7 +68,7 @@ export default function HomePage() {
             <div className="relative flex flex-col justify-center">
               <div className="mb-5 flex items-center gap-2 text-xs font-semibold text-gray-300">
                 <span className="h-2 w-2 rounded-full bg-[#CCFF00]" />
-                Welcome back
+                Welcome to
               </div>
               <h1 className="text-5xl font-bold leading-none tracking-normal text-white md:text-6xl">
                 Chest<span className="text-[#CCFF00]">Fi</span>
