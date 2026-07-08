@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Coins, Lock, Shield, Calendar, Send } from 'lucide-react';
+import { ArrowRight, Coins, Lock, Shield, Calendar, Send, Flame } from 'lucide-react';
 
 const tools = [
   {
@@ -35,6 +35,13 @@ const tools = [
     description: 'Send tokens to multiple addresses efficiently',
     href: '/tools/multi-send',
     icon: Send,
+    color: 'bg-[#CCFF00] text-[#1C180D]',
+  },
+  {
+    name: 'Burn',
+    description: 'Burn tokens directly from your wallet',
+    href: '/tools/burn',
+    icon: Flame,
     color: 'bg-[#CCFF00] text-[#1C180D]',
   },
 ];
