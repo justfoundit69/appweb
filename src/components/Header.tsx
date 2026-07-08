@@ -13,9 +13,9 @@ export function Header() {
             <Image
               src="/chestfi-icon.png"
               alt="ChestFi"
-              width={40}
-              height={40}
-              className="h-10 w-10 rounded-lg object-cover bg-black"
+              width={48}
+              height={38}
+              className="h-9 w-12 object-contain"
               priority
             />
             <span className="text-xl font-bold text-white">ChestFi</span>
