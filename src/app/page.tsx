@@ -63,8 +63,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen px-5 pb-24 pt-28 text-white sm:px-6 sm:pt-20 lg:px-8 lg:pb-14 lg:pt-0">
       <div className="mx-auto w-[20rem] max-w-full space-y-7 sm:w-full sm:max-w-[1280px] sm:space-y-6">
-        <section className="relative overflow-hidden rounded-lg border border-white/12 bg-[#070807] p-2 sm:p-3">
-          <div className="relative grid min-h-[220px] gap-6 overflow-hidden rounded-lg border border-white/10 bg-[#0b0c0b] p-5 sm:p-7 md:grid-cols-[1fr_420px] md:p-9">
+        <section className="relative grid min-h-[220px] gap-6 overflow-hidden rounded-lg border border-white/10 bg-[#0b0c0b] p-5 sm:p-7 md:grid-cols-[1fr_420px] md:p-9">
             <div className="relative flex flex-col justify-center">
               <div className="mb-5 flex items-center gap-2 text-xs font-semibold text-gray-300">
                 <span className="h-2 w-2 rounded-full bg-[#CCFF00]" />
@@ -94,16 +93,16 @@ export default function HomePage() {
             </div>
 
             <div className="relative hidden items-center justify-center md:flex">
+              <div className="absolute h-40 w-56 rounded-full bg-[#CCFF00]/20 blur-3xl" />
               <Image
                 src="/chestfi-icon.png"
                 alt="ChestFi chest"
                 width={300}
                 height={228}
                 priority
-                className="h-[170px] w-[230px] object-contain"
+                className="relative h-[170px] w-[230px] object-contain drop-shadow-[0_0_28px_rgba(204,255,0,0.35)]"
               />
             </div>
-          </div>
         </section>
 
         <DashboardStats />
