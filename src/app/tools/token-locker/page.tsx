@@ -293,7 +293,7 @@ export default function TokenLockerPage() {
       addToast({
         type: 'success',
         title: 'Token Locked Successfully!',
-        description: 'Your token has been locked until the specified date.',
+        description: 'Your token has been locked with ChestFi.',
       });
       lastNotifiedHashRef.current = hash;
     }
@@ -380,7 +380,7 @@ export default function TokenLockerPage() {
                   <div className="mt-8 p-4 bg-black border border-white rounded-lg">
                     <h3 className="text-lg font-semibold text-white mb-2">Token Locked Successfully!</h3>
                     <p className="text-white mb-4">
-                      Your token has been locked with the specified parameters.
+                      Your token has been locked with ChestFi.
                     </p>
                     <a
                       href={explorerUrl('', hash)}
