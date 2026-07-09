@@ -7,6 +7,7 @@ import { useReadContract } from 'wagmi';
 import type { Abi } from 'viem';
 import tokenFactoryAbi from '@/lib/abis/tokenFactory.json';
 import tokenLockerAbi from '@/lib/abis/tokenLocker.json';
+import { robinhoodChain } from '@/lib/chains';
 
 type StatCard = {
   label: string;
@@ -97,9 +98,14 @@ export function DashboardStats() {
     address: tokenLocker,
     abi: tokenLockerAbi as Abi,
     functionName: 'nextLockId',
+    chainId: robinhoodChain.id,
     query: {
       enabled: !!tokenLocker,
       refetchInterval: 10000,
+      refetchOnMount: 'always',
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+      staleTime: 0,
     },
   });
 
@@ -110,9 +116,14 @@ export function DashboardStats() {
     address: tokenFactory,
     abi: tokenFactoryAbi as Abi,
     functionName: 'getDeployedTokensCount',
+    chainId: robinhoodChain.id,
     query: {
       enabled: !!tokenFactory,
       refetchInterval: 10000,
+      refetchOnMount: 'always',
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+      staleTime: 0,
     },
   });
 
@@ -122,13 +133,13 @@ export function DashboardStats() {
   const stats: StatCard[] = [
     {
       label: 'Total Locks',
-      value: isLocksError || !tokenLocker ? '-' : '0',
+      value: isLocksError || !tokenLocker || lockCount === undefined ? '-' : '0',
       numericValue: lockCount === undefined || isLocksError || !tokenLocker ? undefined : Number(lockCount),
       icon: Lock,
     },
     {
       label: 'Total Tokens Created',
-      value: isTokensError || !tokenFactory ? '-' : '0',
+      value: isTokensError || !tokenFactory || deployedTokenCount === undefined ? '-' : '0',
       numericValue: deployedTokenCount === undefined || isTokensError || !tokenFactory ? undefined : Number(deployedTokenCount),
       icon: Coins,
     },
