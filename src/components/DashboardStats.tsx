@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Calendar, Coins, Lock, Shield } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useReadContract } from 'wagmi';
@@ -10,8 +11,8 @@ import tokenLockerAbi from '@/lib/abis/tokenLocker.json';
 type StatCard = {
   label: string;
   value: string;
+  numericValue?: number;
   icon: LucideIcon;
-  isLoading?: boolean;
 };
 
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
@@ -24,11 +25,7 @@ function asAddress(value?: string): `0x${string}` | undefined {
   return value as `0x${string}`;
 }
 
-function formatCount(value?: bigint): string {
-  if (value === undefined) {
-    return '-';
-  }
-
+function formatNumber(value: number): string {
   return new Intl.NumberFormat('en-US').format(Number(value));
 }
 
@@ -38,6 +35,33 @@ function countFromNextId(nextId?: bigint): bigint | undefined {
   }
 
   return nextId > BigInt(0) ? nextId - BigInt(1) : BigInt(0);
+}
+
+function AnimatedCount({ value }: { value: number }) {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    let frame = 0;
+    const duration = 800;
+    const startedAt = performance.now();
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplayValue(Math.round(value * eased));
+
+      if (progress < 1) {
+        frame = requestAnimationFrame(tick);
+      }
+    };
+
+    setDisplayValue(0);
+    frame = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(frame);
+  }, [value]);
+
+  return <>{formatNumber(displayValue)}</>;
 }
 
 function StatCardItem({ stat }: { stat: StatCard }) {
@@ -50,12 +74,8 @@ function StatCardItem({ stat }: { stat: StatCard }) {
         <div className="min-w-0">
           <p className="text-sm text-gray-400">{stat.label}</p>
           <p className="mt-1 flex min-h-8 items-center text-2xl font-bold text-white">
-            {stat.isLoading ? (
-              <span className="inline-flex items-center gap-1">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-[#CCFF00]" />
-                <span className="h-2 w-2 animate-pulse rounded-full bg-[#CCFF00] [animation-delay:150ms]" />
-                <span className="h-2 w-2 animate-pulse rounded-full bg-[#CCFF00] [animation-delay:300ms]" />
-              </span>
+            {typeof stat.numericValue === 'number' ? (
+              <AnimatedCount value={stat.numericValue} />
             ) : (
               stat.value
             )}
@@ -72,7 +92,6 @@ export function DashboardStats() {
 
   const {
     data: nextLockId,
-    isLoading: isLocksLoading,
     isError: isLocksError,
   } = useReadContract({
     address: tokenLocker,
@@ -86,7 +105,6 @@ export function DashboardStats() {
 
   const {
     data: tokenCount,
-    isLoading: isTokensLoading,
     isError: isTokensError,
   } = useReadContract({
     address: tokenFactory,
@@ -104,15 +122,15 @@ export function DashboardStats() {
   const stats: StatCard[] = [
     {
       label: 'Total Locks',
-      value: isLocksError || !tokenLocker ? '-' : formatCount(lockCount),
+      value: isLocksError || !tokenLocker ? '-' : '0',
+      numericValue: lockCount === undefined || isLocksError || !tokenLocker ? undefined : Number(lockCount),
       icon: Lock,
-      isLoading: !!tokenLocker && isLocksLoading,
     },
     {
       label: 'Total Tokens Created',
-      value: isTokensError || !tokenFactory ? '-' : formatCount(deployedTokenCount),
+      value: isTokensError || !tokenFactory ? '-' : '0',
+      numericValue: deployedTokenCount === undefined || isTokensError || !tokenFactory ? undefined : Number(deployedTokenCount),
       icon: Coins,
-      isLoading: !!tokenFactory && isTokensLoading,
     },
     {
       label: 'Total Value Locked',
