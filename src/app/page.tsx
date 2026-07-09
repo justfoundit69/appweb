@@ -81,7 +81,7 @@ export default function HomePage() {
                   <ArrowRight className="h-5 w-5" />
                 </Link>
                 <a
-                  href="https://docs.robinhood.com/chain/"
+                  href="https://docs.chestfi.cash"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary inline-flex w-full items-center justify-center gap-3 px-7 py-3 text-base sm:w-auto"
