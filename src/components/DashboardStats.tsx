@@ -10,9 +10,8 @@ import tokenLockerAbi from '@/lib/abis/tokenLocker.json';
 type StatCard = {
   label: string;
   value: string;
-  helper: string;
   icon: LucideIcon;
-  isLive?: boolean;
+  isLoading?: boolean;
 };
 
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
@@ -41,13 +40,6 @@ function countFromNextId(nextId?: bigint): bigint | undefined {
   return nextId > BigInt(0) ? nextId - BigInt(1) : BigInt(0);
 }
 
-function helperText(isLoading: boolean, isError: boolean, enabled: boolean, liveText: string, emptyText: string) {
-  if (!enabled) return emptyText;
-  if (isLoading) return 'Loading on-chain data';
-  if (isError) return 'Unable to read contract';
-  return liveText;
-}
-
 function StatCardItem({ stat }: { stat: StatCard }) {
   return (
     <div className="rounded-lg border border-white/10 bg-white/[0.045] p-5 sm:p-4">
@@ -57,10 +49,16 @@ function StatCardItem({ stat }: { stat: StatCard }) {
         </div>
         <div className="min-w-0">
           <p className="text-sm text-gray-400">{stat.label}</p>
-          <p className="mt-1 text-2xl font-bold text-white">{stat.value}</p>
-          <p className="mt-2 flex items-center gap-2 text-xs text-gray-500">
-            {stat.isLive && <span className="h-1.5 w-1.5 rounded-full bg-[#CCFF00]" />}
-            <span>{stat.helper}</span>
+          <p className="mt-1 flex min-h-8 items-center text-2xl font-bold text-white">
+            {stat.isLoading ? (
+              <span className="inline-flex items-center gap-1">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-[#CCFF00]" />
+                <span className="h-2 w-2 animate-pulse rounded-full bg-[#CCFF00] [animation-delay:150ms]" />
+                <span className="h-2 w-2 animate-pulse rounded-full bg-[#CCFF00] [animation-delay:300ms]" />
+              </span>
+            ) : (
+              stat.value
+            )}
           </p>
         </div>
       </div>
@@ -71,7 +69,6 @@ function StatCardItem({ stat }: { stat: StatCard }) {
 export function DashboardStats() {
   const tokenLocker = asAddress(process.env.NEXT_PUBLIC_TOKEN_LOCKER);
   const tokenFactory = asAddress(process.env.NEXT_PUBLIC_TOKEN_FACTORY);
-  const vestingFactory = asAddress(process.env.NEXT_PUBLIC_VESTING_FACTORY);
 
   const {
     data: nextLockId,
@@ -107,28 +104,24 @@ export function DashboardStats() {
   const stats: StatCard[] = [
     {
       label: 'Total Locks',
-      value: formatCount(lockCount),
-      helper: helperText(isLocksLoading, isLocksError, !!tokenLocker, 'Live from token locker', 'Set NEXT_PUBLIC_TOKEN_LOCKER'),
+      value: isLocksError || !tokenLocker ? '-' : formatCount(lockCount),
       icon: Lock,
-      isLive: !!tokenLocker && !isLocksLoading && !isLocksError,
+      isLoading: !!tokenLocker && isLocksLoading,
     },
     {
       label: 'Total Tokens Created',
-      value: formatCount(deployedTokenCount),
-      helper: helperText(isTokensLoading, isTokensError, !!tokenFactory, 'Live from token factory', 'Set NEXT_PUBLIC_TOKEN_FACTORY'),
+      value: isTokensError || !tokenFactory ? '-' : formatCount(deployedTokenCount),
       icon: Coins,
-      isLive: !!tokenFactory && !isTokensLoading && !isTokensError,
+      isLoading: !!tokenFactory && isTokensLoading,
     },
     {
       label: 'Total Value Locked',
-      value: 'Unavailable',
-      helper: 'Needs token indexer and price source',
+      value: 'Soon',
       icon: Shield,
     },
     {
       label: 'Active Vestings',
-      value: 'Unavailable',
-      helper: vestingFactory ? 'Vesting ABI has no public counter' : 'Set NEXT_PUBLIC_VESTING_FACTORY',
+      value: 'Soon',
       icon: Calendar,
     },
   ];
