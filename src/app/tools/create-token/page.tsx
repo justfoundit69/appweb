@@ -8,19 +8,19 @@ import { useAccount, useWriteContract, useWaitForTransactionReceipt, useReadCont
 import { RequireWallet } from '@/components/RequireWallet';
 import { FormField } from '@/components/FormField';
 import { ToastContainer, type ToastProps, type ToastData } from '@/components/Toast';
-import { explorerUrl } from '@/lib/utils';
+import { explorerUrl, isValidAddress } from '@/lib/utils';
 import tokenFactoryAbi from '@/lib/abis/tokenFactory.json';
-import { parseUnits, formatUnits, parseEther } from 'viem';
+import { formatUnits, parseEther, parseEventLogs } from 'viem';
 
 const createTokenSchema = z.object({
   name: z.string().min(1, 'Token name is required'),
   symbol: z.string().min(2, 'Symbol must be at least 2 characters').max(6, 'Symbol must be at most 6 characters'),
-  totalSupply: z.string().min(1, 'Total supply is required').refine((val) => !isNaN(Number(val)) && Number(val) > 0, 'Total supply must be a positive number'),
+  totalSupply: z.string().min(1, 'Total supply is required').refine((val) => /^\d+$/.test(val) && BigInt(val) > BigInt(0), 'Total supply must be a positive whole number'),
   decimals: z.string().min(1, 'Decimals is required').refine((val) => {
     const num = Number(val);
     return Number.isInteger(num) && num >= 0 && num <= 18;
   }, 'Decimals must be between 0 and 18'),
-  owner: z.string().min(42, 'Invalid address').max(42, 'Invalid address'),
+  owner: z.string().refine(isValidAddress, 'Invalid address'),
 });
 
 type CreateTokenForm = z.infer<typeof createTokenSchema>;
@@ -29,6 +29,7 @@ export default function CreateTokenPage() {
   const { address } = useAccount();
   const [toasts, setToasts] = useState<ToastProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [createdToken, setCreatedToken] = useState<`0x${string}` | null>(null);
   const isComingSoon = process.env.NEXT_PUBLIC_TOKEN_CREATION_COMING_SOON === 'true';
 
   const {
@@ -45,8 +46,8 @@ export default function CreateTokenPage() {
     },
   });
 
-  const { writeContract, data: hash, isPending } = useWriteContract();
-  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+  const { writeContractAsync, data: hash, isPending } = useWriteContract();
+  const { data: receipt, isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
     hash,
   });
 
@@ -81,6 +82,7 @@ export default function CreateTokenPage() {
     }
 
     setIsLoading(true);
+    setCreatedToken(null);
     try {
       const decimalsNum = Number(data.decimals);
       if (!Number.isInteger(decimalsNum) || decimalsNum < 0 || decimalsNum > 18) {
@@ -92,12 +94,11 @@ export default function CreateTokenPage() {
         return;
       }
 
-      // Convert total supply to smallest units using provided decimals
-      const totalSupplyWithDecimals = parseUnits(data.totalSupply, decimalsNum);
+      const totalSupply = BigInt(data.totalSupply);
 
       // Validate contract address format
       const contractAddress = process.env.NEXT_PUBLIC_TOKEN_FACTORY;
-      if (!contractAddress || !contractAddress.startsWith('0x') || contractAddress.length !== 42) {
+      if (!contractAddress || !isValidAddress(contractAddress)) {
         addToast({
           type: 'error',
           title: 'Invalid Contract Address',
@@ -107,11 +108,11 @@ export default function CreateTokenPage() {
       }
 
       // Single canonical call matching our TokenFactory
-      await writeContract({
+      await writeContractAsync({
         address: contractAddress as `0x${string}`,
         abi: tokenFactoryAbi,
         functionName: 'createToken',
-        args: [data.name, data.symbol, decimalsNum, totalSupplyWithDecimals, data.owner as `0x${string}`],
+        args: [data.name, data.symbol, decimalsNum, totalSupply, data.owner as `0x${string}`],
         value: (feeAmount as bigint) ?? parseEther('0.00235'), // ~5 USD in ETH fallback
       });
 
@@ -145,6 +146,22 @@ export default function CreateTokenPage() {
   const lastNotifiedHashRef = useRef<string | null>(null);
   useEffect(() => {
     if (isSuccess && hash && lastNotifiedHashRef.current !== hash) {
+      if (receipt?.logs?.length) {
+        try {
+          const logs = parseEventLogs({
+            abi: tokenFactoryAbi,
+            eventName: 'TokenCreated',
+            logs: receipt.logs,
+          }) as unknown as Array<{ args?: { token?: unknown } }>;
+          const token = logs[0]?.args && 'token' in logs[0].args ? logs[0].args.token : undefined;
+          if (typeof token === 'string' && isValidAddress(token)) {
+            setCreatedToken(token as `0x${string}`);
+          }
+        } catch {
+          setCreatedToken(null);
+        }
+      }
+
       addToast({
         type: 'success',
         title: 'Token Created Successfully!',
@@ -152,7 +169,7 @@ export default function CreateTokenPage() {
       });
       lastNotifiedHashRef.current = hash;
     }
-  }, [isSuccess, hash, addToast]);
+  }, [isSuccess, hash, receipt, addToast]);
 
 
   return (
@@ -256,6 +273,19 @@ export default function CreateTokenPage() {
                     <p className="text-white mb-4">
                       Your token has been deployed to the blockchain.
                     </p>
+                    {createdToken && (
+                      <div className="mb-4 rounded-lg border border-white/15 bg-white/[0.04] p-3">
+                        <p className="text-sm text-gray-300">Token Address</p>
+                        <a
+                          href={explorerUrl(createdToken)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-1 block break-all font-mono text-sm text-[#CCFF00]"
+                        >
+                          {createdToken}
+                        </a>
+                      </div>
+                    )}
                     <a
                       href={explorerUrl('', hash)}
                       target="_blank"
@@ -287,21 +317,21 @@ export default function CreateTokenPage() {
                   <h3 className="text-lg font-semibold text-white mb-2">Preview</h3>
                   <div className="bg-black backdrop-blur-sm border border-white/15 rounded-lg p-4 space-y-2">
                     <p className="text-sm text-gray-300">Name</p>
-                    <p className="font-semibold text-white">{watch('name') || '—'}</p>
+                    <p className="font-semibold text-white">{watch('name') || '-'}</p>
                     <p className="text-sm text-gray-300 mt-3">Symbol</p>
-                    <p className="font-semibold text-white">{watch('symbol') || '—'}</p>
+                    <p className="font-semibold text-white">{watch('symbol') || '-'}</p>
                     <p className="text-sm text-gray-300 mt-3">Decimals</p>
                     <p className="font-semibold text-white">{watch('decimals') || '18'}</p>
                     <p className="text-sm text-gray-300 mt-3">Total Supply</p>
-                    <p className="font-semibold text-white">{watch('totalSupply') || '—'}</p>
+                    <p className="font-semibold text-white">{watch('totalSupply') || '-'}</p>
                     <p className="text-sm text-gray-300 mt-3">Owner</p>
-                    <p className="font-mono text-white break-all">{watch('owner') || '—'}</p>
+                    <p className="font-mono text-white break-all">{watch('owner') || '-'}</p>
                   </div>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2">Guidelines</h3>
                   <ul className="text-sm text-gray-300 list-disc pl-5 space-y-1">
-                    <li>Symbol should be 2–6 characters; uppercase is recommended.</li>
+                    <li>Symbol should be 2-6 characters; uppercase is recommended.</li>
                     <li>Total Supply is the initial number of tokens to mint.</li>
                     <li>Owner Address will become the token contract owner.</li>
                     <li>Make sure you have enough ETH for the creation fee.</li>

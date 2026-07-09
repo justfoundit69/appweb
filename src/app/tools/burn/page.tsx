@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useWriteContract, useWaitForTransactionReceipt, useAccount, useReadContract } from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt, useAccount, useReadContract, usePublicClient } from 'wagmi';
 import { RequireWallet } from '@/components/RequireWallet';
 import { FormField } from '@/components/FormField';
 import { ToastContainer, type ToastProps, type ToastData } from '@/components/Toast';
@@ -53,12 +53,20 @@ const erc20Abi = [
     stateMutability: 'nonpayable',
     type: 'function',
   },
+  {
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', type: 'string' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
 ] as const;
 
 export default function BurnPage() {
   const [toasts, setToasts] = useState<ToastProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
+  const publicClient = usePublicClient();
 
   const {
     register,
@@ -86,6 +94,13 @@ export default function BurnPage() {
   });
   const decimals = Number((tokenDecimals as unknown as number) ?? 18);
 
+  const { data: tokenSymbol } = useReadContract({
+    address: tokenAddress as `0x${string}`,
+    abi: erc20Abi,
+    functionName: 'symbol',
+    query: { enabled: !!tokenAddress && isValidAddress(tokenAddress) },
+  });
+
   // Read token balance
   const { data: tokenBalance } = useReadContract({
     address: tokenAddress as `0x${string}`,
@@ -96,7 +111,7 @@ export default function BurnPage() {
   });
 
 
-  const { writeContract, data: hash, isPending: isWritePending } = useWriteContract();
+  const { writeContractAsync, data: hash, isPending: isWritePending } = useWriteContract();
   const { isLoading: isConfirming, isSuccess, isError } = useWaitForTransactionReceipt({
     hash,
   });
@@ -155,10 +170,20 @@ export default function BurnPage() {
       return;
     }
 
-    // Check balance
     const balance = tokenBalance as bigint | undefined;
-    const amountInUnits = parseUnits(data.amount, decimals);
-    
+    let amountInUnits: bigint;
+
+    try {
+      amountInUnits = parseUnits(data.amount, decimals);
+    } catch {
+      addToast({
+        type: 'error',
+        title: 'Invalid Amount',
+        description: 'Amount format is invalid for this token.',
+      });
+      return;
+    }
+
     if (!balance || balance < amountInUnits) {
       addToast({
         type: 'error',
@@ -170,27 +195,49 @@ export default function BurnPage() {
 
     setIsLoading(true);
     try {
+      const symbol = tokenSymbol ? String(tokenSymbol) : 'tokens';
+      let useNativeBurn = false;
+
       addToast({
         type: 'info',
         title: 'Burning Tokens',
-        description: `Burning ${data.amount} tokens...`,
+        description: `Burning ${data.amount} ${symbol}...`,
       });
 
-      // Try to use burn function first, fallback to transfer to dead address
-      // Note: Most ERC20 tokens don't have burn(), so we'll use transfer to dead address
-      try {
-        // First, try burn function (if token supports it)
-        await writeContract({
+      if (publicClient) {
+        try {
+          await publicClient.simulateContract({
+            address: tokenAddress as `0x${string}`,
+            abi: erc20Abi,
+            functionName: 'burn',
+            args: [amountInUnits],
+            account: address,
+          });
+          useNativeBurn = true;
+        } catch {
+          useNativeBurn = false;
+        }
+      }
+
+      if (useNativeBurn) {
+        await writeContractAsync({
           address: tokenAddress as `0x${string}`,
           abi: erc20Abi,
           functionName: 'burn',
           args: [amountInUnits],
         });
-      } catch {
-        // If burn function doesn't exist or fails, use transfer to dead address
-        // This is the standard way to burn tokens for most ERC20 contracts
-        console.log('Burn function not available, using transfer to dead address');
-        await writeContract({
+      } else {
+        if (publicClient) {
+          await publicClient.simulateContract({
+            address: tokenAddress as `0x${string}`,
+            abi: erc20Abi,
+            functionName: 'transfer',
+            args: [BURN_ADDRESS, amountInUnits],
+            account: address,
+          });
+        }
+
+        await writeContractAsync({
           address: tokenAddress as `0x${string}`,
           abi: erc20Abi,
           functionName: 'transfer',
@@ -201,7 +248,9 @@ export default function BurnPage() {
       addToast({
         type: 'info',
         title: 'Transaction Submitted',
-        description: 'Waiting for confirmation...',
+        description: useNativeBurn
+          ? 'Native burn transaction submitted. Waiting for confirmation...'
+          : 'Transfer to dead address submitted. Waiting for confirmation...',
       });
     } catch (error) {
       console.error('Error burning tokens:', error);
@@ -216,6 +265,18 @@ export default function BurnPage() {
 
   const balance = tokenBalance as bigint | undefined;
   const balanceFormatted = balance ? formatUnits(balance, decimals) : '0';
+  const tokenLabel = tokenSymbol ? String(tokenSymbol) : 'tokens';
+  const amountPreview = (() => {
+    try {
+      return amount ? parseUnits(amount, decimals) : null;
+    } catch {
+      return null;
+    }
+  })();
+  const balanceAfterBurn =
+    balance !== undefined && amountPreview !== null && balance >= amountPreview
+      ? formatUnits(balance - amountPreview, decimals)
+      : '0';
 
   return (
     <RequireWallet>
@@ -245,7 +306,9 @@ export default function BurnPage() {
                     {tokenAddress && isValidAddress(tokenAddress) && balance !== undefined && (
                       <div className="mt-4 p-4 bg-black/70 backdrop-blur-sm border border-white/20 rounded-lg">
                         <p className="text-sm text-gray-300">Your Balance</p>
-                        <p className="text-lg font-bold text-white break-all break-words overflow-wrap-anywhere">{balanceFormatted} tokens</p>
+                        <p className="text-lg font-bold text-white break-all break-words overflow-wrap-anywhere">
+                          {balanceFormatted} {tokenLabel}
+                        </p>
                       </div>
                     )}
                   </div>
@@ -275,7 +338,7 @@ export default function BurnPage() {
 
                   {/* Warning */}
                   <div className="p-4 bg-red-900/30 border border-red-600 rounded-lg">
-                    <p className="text-sm text-red-200 font-semibold mb-1">⚠️ Warning</p>
+                    <p className="text-sm text-red-200 font-semibold mb-1">Warning</p>
                     <p className="text-sm text-red-200">
                       Burning tokens is permanent and irreversible. The tokens will be sent to a dead address and cannot be recovered.
                     </p>
@@ -314,16 +377,18 @@ export default function BurnPage() {
                   {tokenAddress && isValidAddress(tokenAddress) && (
                     <>
                       <p className="text-sm text-gray-300 mt-4">Your Balance</p>
-                      <p className="text-lg font-bold text-white break-words overflow-wrap-anywhere min-w-0">{balanceFormatted}</p>
+                      <p className="text-lg font-bold text-white break-words overflow-wrap-anywhere min-w-0">
+                        {balanceFormatted} {tokenLabel}
+                      </p>
                       <p className="text-sm text-gray-300 mt-4">Amount to Burn</p>
                       <p className="text-lg font-bold text-white break-words overflow-wrap-anywhere min-w-0">
-                        {amount && !isNaN(Number(amount)) ? Number(amount).toLocaleString() : '0'} tokens
+                        {amount && !isNaN(Number(amount)) ? amount : '0'} {tokenLabel}
                       </p>
                       {amount && !isNaN(Number(amount)) && balance && (
                         <>
                           <p className="text-sm text-gray-300 mt-4">Balance After Burn</p>
                           <p className="text-lg font-bold text-white break-words overflow-wrap-anywhere min-w-0">
-                            {(Number(balanceFormatted) - Number(amount)).toLocaleString()} tokens
+                            {balanceAfterBurn} {tokenLabel}
                           </p>
                         </>
                       )}

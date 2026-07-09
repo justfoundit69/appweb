@@ -103,3 +103,17 @@ button, .btn-primary, .btn-secondary {
   border-color: rgba(255, 255, 255, 0.24);
   color: #ffffff;
 }
+
+.date-input {
+  color-scheme: dark;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(1);
+  opacity: 0.85;
+}
+
+.date-input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
