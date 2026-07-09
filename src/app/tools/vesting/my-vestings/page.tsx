@@ -5,6 +5,7 @@ import { useAccount, useReadContract, useReadContracts, useWriteContract } from 
 import vestingAbi from '@/lib/abis/vestingFactory.json';
 import { formatUnits, type Abi } from 'viem';
 import { RequireWallet } from '@/components/RequireWallet';
+import ComingSoonOverlay from '@/components/ComingSoonOverlay';
 
 const vestingFactoryAbi = vestingAbi as Abi;
 const erc20DecimalsAbi = [
@@ -124,18 +125,8 @@ export default function MyVestingsPage() {
             <p className="text-gray-300">Manage and claim your vesting schedules.</p>
           </div>
 
-          {/* Blur overlay while coming soon - covers only main content area, not header/sidebar */}
           {isComingSoon && (
-            <>
-              <div className="fixed top-16 left-0 right-0 lg:left-64 bottom-0 z-40 pointer-events-auto cursor-not-allowed select-none">
-                <div className="absolute inset-0 backdrop-blur-md bg-black/80" />
-                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-2xl z-20 text-center px-6">
-                  <div className="rounded-lg border-2 border-white bg-black backdrop-blur-sm p-4 shadow-sm">
-                    <p className="font-semibold text-white">Coming Soon</p>
-                  </div>
-                </div>
-              </div>
-            </>
+            <ComingSoonOverlay toolName="Token Vesting" />
           )}
 
           <div className={`card p-6 overflow-x-auto ${isComingSoon ? 'blur-sm select-none pointer-events-none user-select-none' : ''}`}>

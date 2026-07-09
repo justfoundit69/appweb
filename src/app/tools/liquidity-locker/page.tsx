@@ -7,6 +7,7 @@ import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { RequireWallet } from '@/components/RequireWallet';
 import { FormField } from '@/components/FormField';
 import { ToastContainer, type ToastProps, type ToastData } from '@/components/Toast';
+import ComingSoonOverlay from '@/components/ComingSoonOverlay';
 import { explorerUrl } from '@/lib/utils';
 import liquidityLockerAbi from '@/lib/abis/liquidityLocker.json';
 
@@ -102,21 +103,11 @@ export default function LiquidityLockerPage() {
             </p>
           </div>
 
-          {/* Blur overlay while coming soon - covers only main content area, not header/sidebar */}
           {isComingSoon && (
-            <>
-              <div className="fixed top-16 left-0 right-0 lg:left-64 bottom-0 z-40 pointer-events-auto cursor-not-allowed select-none">
-                <div className="absolute inset-0 backdrop-blur-md bg-black/80" />
-                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto max-w-2xl z-20 text-center px-6">
-                  <div className="rounded-lg border-2 border-white bg-black backdrop-blur-sm p-4 shadow-sm">
-                    <p className="font-semibold mb-1 text-white">Coming Soon</p>
-                    <p className="text-sm text-gray-300">
-                      Liquidity Locker is not available yet. For now, you can use Token Locker to lock your LP tokens.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </>
+            <ComingSoonOverlay
+              toolName="Liquidity Locker"
+              message="Liquidity Locker is not available yet. For now, you can use Token Locker to lock your LP tokens."
+            />
           )}
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
